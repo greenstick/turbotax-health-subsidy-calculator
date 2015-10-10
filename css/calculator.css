@@ -1,0 +1,88 @@
+/*
+TurboTax ACA Subsidy Eligibility Calculator
+Client: Intuit - TurboTax
+By: Column Five Media, Inc.
+Author: Benjamin Cordier
+*/
+
+/*
+Fonts
+*/
+
+@font-face{font-family:'Avenir';src:url('../font/AvenirLT-Light.eot');src:url('../font/AvenirLT-Light.eot?#iefix') format('embedded-opentype'), url('../font/AvenirLT-Light.woff') format('woff'), url('../font/AvenirLT-Light.ttf') format('truetype'), url('../font/AvenirLT-Light.svg#Avenir') format('svg');font-weight:200;font-style:normal;}@font-face{font-family:'Avenir';src:url('../font/AvenirLT-Roman.eot');src:url('../font/AvenirLT-Roman.eot?#iefix') format('embedded-opentype'), url('../font/AvenirLT-Roman.woff') format('woff'), url('../font/AvenirLT-Roman.ttf') format('truetype'), url('../font/AvenirLT-Roman.svg#Avenir') format('svg');font-weight:400;font-style:normal;}@font-face{font-family:'Avenir';src:url('../font/AvenirLT-Medium.eot');src:url('../font/AvenirLT-Medium.eot?#iefix') format('embedded-opentype'), url('../font/AvenirLT-Medium.woff') format('woff'), url('../font/AvenirLT-Medium.ttf') format('truetype'), url('../font/AvenirLT-Medium.svg#Avenir') format('svg');font-weight:600;font-style:normal;}@font-face{font-family:'Avenir';src:url('../font/AvenirLT-Heavy.eot');src:url('../font/AvenirLT-Heavy.eot?#iefix') format('embedded-opentype'), url('../font/AvenirLT-Heavy.woff') format('woff'), url('../font/AvenirLT-Heavy.ttf') format('truetype'), url('../font/AvenirLT-Heavy.svg#Avenir') format('svg');font-weight:800;font-style:normal;}
+
+/*
+Normalize
+*/
+
+/* Correct overflow not hidden in IE 9/10/11. */
+#calculator-wrapper svg:not(:root) {
+  overflow: hidden;
+}
+
+#calculator-wrapper select {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+/*
+General Styles
+*/
+
+#calculator-wrapper {
+	position: relative;
+	max-width: 580px;
+	height: 968px;
+	margin: 0 auto;
+	padding: 0;
+	background-color: #0082c3;
+	box-sizing: border-box;
+	text-align: center;
+	font-family: Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+#calculator-wrapper .text-left {
+	text-align: left;
+}
+#calculator-wrapper .underlined {
+	text-decoration: underline;
+}
+#calculator-wrapper #page-1 {
+	display: block;
+}
+#calculator-wrapper .page {
+	position: relative;
+	top: 0px;
+	display: none;
+	background-color: #ffffff;
+	margin: 30px 20px 25px 20px;
+}
+
+/*
+Page Element Styles
+*/
+
+#calculator-wrapper .page .title, #calculator-wrapper .page .lead {
+	font-weight: 200;
+	font-size: 24px;
+	color: #0082c3;
+}
+#calculator-wrapper .page .lead {
+	font-size: 18px;	
+}
+#calculator-wrapper .input {
+
+} 
+#calculator-wrapper .input.editable {
+	overflow: hidden;
+	word-wrap: initial;
+	white-space: nowrap;
+}
+
+/*
+Navigation Styles
+*/
+
+#calculator-wrapper .navigation {
+	cursor: pointer;
+}
