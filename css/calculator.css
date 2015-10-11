@@ -12,71 +12,235 @@ Fonts
 @font-face{font-family:'Avenir';src:url('../font/AvenirLT-Light.eot');src:url('../font/AvenirLT-Light.eot?#iefix') format('embedded-opentype'), url('../font/AvenirLT-Light.woff') format('woff'), url('../font/AvenirLT-Light.ttf') format('truetype'), url('../font/AvenirLT-Light.svg#Avenir') format('svg');font-weight:200;font-style:normal;}@font-face{font-family:'Avenir';src:url('../font/AvenirLT-Roman.eot');src:url('../font/AvenirLT-Roman.eot?#iefix') format('embedded-opentype'), url('../font/AvenirLT-Roman.woff') format('woff'), url('../font/AvenirLT-Roman.ttf') format('truetype'), url('../font/AvenirLT-Roman.svg#Avenir') format('svg');font-weight:400;font-style:normal;}@font-face{font-family:'Avenir';src:url('../font/AvenirLT-Medium.eot');src:url('../font/AvenirLT-Medium.eot?#iefix') format('embedded-opentype'), url('../font/AvenirLT-Medium.woff') format('woff'), url('../font/AvenirLT-Medium.ttf') format('truetype'), url('../font/AvenirLT-Medium.svg#Avenir') format('svg');font-weight:600;font-style:normal;}@font-face{font-family:'Avenir';src:url('../font/AvenirLT-Heavy.eot');src:url('../font/AvenirLT-Heavy.eot?#iefix') format('embedded-opentype'), url('../font/AvenirLT-Heavy.woff') format('woff'), url('../font/AvenirLT-Heavy.ttf') format('truetype'), url('../font/AvenirLT-Heavy.svg#Avenir') format('svg');font-weight:800;font-style:normal;}
 
 /*
-Normalize
+Normalize & Native UI Mods
 */
 
 /* Correct overflow not hidden in IE 9/10/11. */
 #calculator-wrapper svg:not(:root) {
   overflow: hidden;
 }
-
+/* Modify Select Input */
 #calculator-wrapper select {
-  color: inherit;
-  font: inherit;
-  margin: 0;
+	display: block;
+	color: #34b8f4;
+	background-color: #ffffff;
+  	font: inherit;
+	margin: 0;
+	width: 256px;
+	height: 28px;
+	padding: 6px 8px 6px 5px;
+	font-size: 16px;
+	font-weight: 200;
+	border: 1px solid #34b8f4;
+	border-radius: 3px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: url(../img/arrow.svg) 96% / 6% no-repeat;
+	overflow: auto;
+	cursor: pointer;
+} 
+/*target Internet Explorer 9 and Internet Explorer 10:*/
+@media screen and (min-width:0\0) { 
+    #calculator-wrapper select {
+        background:none;
+        padding: 5px;
+    }
+}
+#calculator-wrapper input {
+	background-color: transparent;
+}
+/* Remove Number Spinner*/
+#calculator-wrapper input[type=number]::-webkit-outer-spin-button, #calculator-wrapper input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+#calculator-wrapper input[type=number] {
+    -moz-appearance:textfield;
+}
+::-webkit-input-placeholder {
+	font-weight: 400;
+	font-size: 14px;
+	font-style: italic;
+}
+::-moz-placeholder { 
+	font-weight: 400;
+	font-size: 14px;
+	font-style: italic;
+} /* firefox 19+ */
+:-ms-input-placeholder {
+	font-weight: 400;
+	font-size: 14px;
+	font-style: italic;
+} /* ie */
+input:-moz-placeholder { 
+	font-weight: 400;
+	font-size: 14px;
+	font-style: italic;
 }
 
 /*
-General Styles
+Core Styles
 */
 
 #calculator-wrapper {
 	position: relative;
 	max-width: 580px;
-	height: 968px;
+	min-width: 320px;
+	height: 800px;
 	margin: 0 auto;
 	padding: 0;
-	background-color: #0082c3;
 	box-sizing: border-box;
 	text-align: center;
 	font-family: Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background-color: #0082c3;
+}
+#calculator-wrapper .pages {
+	position: relative;
+	max-width: 548px;
+	height: 732px;
+	padding: 16px 16px 42px 16px;
+	background-color: transparent;
+}
+#calculator-wrapper .row {
+	margin: 10px auto;
+	max-width: 320px;
+}
+#calculator-wrapper a {
+	color: #333333;
+	text-decoration: none;
+	padding: 4px;
+	cursor: pointer;
+}
+#calculator-wrapper .underlined {
+	text-decoration: underline;
+	color: #666666;
+	padding: 4px;
+}
+#calculator-wrapper .underlined:hover, #calculator-wrapper a:active {
+	color: #0082c3;
+	background-color: #f1f1f1;
+	border-radius: 2px;
 }
 #calculator-wrapper .text-left {
 	text-align: left;
 }
-#calculator-wrapper .underlined {
-	text-decoration: underline;
-}
-#calculator-wrapper #page-1 {
-	display: block;
-}
-#calculator-wrapper .page {
-	position: relative;
-	top: 0px;
-	display: none;
-	background-color: #ffffff;
-	margin: 30px 20px 25px 20px;
-}
 
 /*
-Page Element Styles
+Brand Styles
 */
 
-#calculator-wrapper .page .title, #calculator-wrapper .page .lead {
-	font-weight: 200;
-	font-size: 24px;
+/* Font Colors */
+
+#calculator-wrapper .deepblue {
 	color: #0082c3;
 }
-#calculator-wrapper .page .lead {
-	font-size: 18px;	
+#calculator-wrapper .skyblue {
+	color: #34b8f4;
 }
-#calculator-wrapper .input {
+#calculator-wrapper .lightblue {
+	color: #9cedf7;
+}
+#calculator-wrapper .navyblue {
+	color: #00689c;
+}
+#calculator-wrapper .black {
+	color: #333333;
+}
+#calculator-wrapper .darkgrey {
+	color: #666666;
+}
+#calculator-wrapper .grey {
+	color: #999999;
+}
+#calculator-wrapper .lightgrey {
+	color: #dfdfdf;
+}
+#calculator-wrapper .offwhite {
+	color: #f1f1f1;
+}
+#calculator-wrapper .white {
+	color: #ffffff;
+}
+#calculator-wrapper .orange {
+	color: #ff8000;
+}
+#calculator-wrapper .gold {
+	color: #ffb63d;
+}
+#calculator-wrapper .green {
+	color: #5ac54c;
+}
 
-} 
-#calculator-wrapper .input.editable {
-	overflow: hidden;
-	word-wrap: initial;
-	white-space: nowrap;
+/* Background Colors */
+
+#calculator-wrapper .deepblue-bg {
+	background-color: #0082c3;
+}
+#calculator-wrapper .skyblue-bg {
+	background-color: #34b8f4;
+}
+#calculator-wrapper .lightblue-bg {
+	background-color: #9cedf7;
+}
+#calculator-wrapper .navyblue-bg {
+	background-color: #00689c;
+}
+#calculator-wrapper .black-bg {
+	background-color: #333333;
+}
+#calculator-wrapper .darkgrey-bg {
+	background-color: #666666;
+}
+#calculator-wrapper .grey-bg {
+	background-color: #999999;
+}
+#calculator-wrapper .lightgrey-bg {
+	background-color: #dfdfdf;
+}
+#calculator-wrapper .offwhite-bg {
+	background-color: #f1f1f1;
+}
+#calculator-wrapper .white-bg {
+	background-color: #ffffff;
+}
+#calculator-wrapper .orange-bg {
+	background-color: #ff8000;
+}
+#calculator-wrapper .gold-bg {
+	background-color: #ffb63d;
+}
+#calculator-wrapper .green-bg {
+	background-color: #5ac54c;
+}
+
+/* Typography Styles */
+
+#calculator-wrapper .title {
+	font-weight: 200;
+	font-size: 28px;
+	line-height: 32px;
+	margin-bottom: 0px;
+}
+#calculator-wrapper .lead {
+	font-weight: 200;
+	font-size: 18px;
+}
+#calculator-wrapper .button {
+	font-weight: 200;
+	font-size: 18px;
+}
+#calculator-wrapper .cta {
+	font-weight: 400;
+	font-size: 18px;
+}
+#calculator-wrapper .body-text {
+	font-weight: 400;
+	font-size: 14px;
+}
+#calculator-wrapper .sub-text {
+	font-weight: 400;
+	font-size: 12px;
 }
 
 /*
@@ -85,4 +249,196 @@ Navigation Styles
 
 #calculator-wrapper .navigation {
 	cursor: pointer;
+}
+#calculator-wrapper .back.navigation {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+}
+#calculator-wrapper .restart.navigation {
+	position: absolute;
+	top: 20px;
+	left: 60px;
+}
+
+/*
+Page Setup
+*/
+
+/* Display First Page */
+#calculator-wrapper #page-1 {
+	display: block;
+}
+#calculator-wrapper .page {
+	position: relative;
+	max-width: 548px;
+	height: 732px;
+	display: none;
+	background-color: #ffffff;
+}
+#calculator-wrapper .page .page-aligner {
+	width: 100%;
+	height: 85%;
+	display: flex;
+    flex-direction: row;
+    align-items: center; 
+    justify-content: center;
+}
+
+/*
+Page Element Styles
+*/
+
+#calculator-wrapper .icon {
+
+}
+#calculator-wrapper .page .title {
+	position: relative;
+	letter-spacing: 2px;
+	top: -24px;
+}
+#calculator-wrapper .page .lead {
+    font-size: 24px;
+    position: relative;
+    max-width: 268px;
+    top: -8px;
+}
+#calculator-wrapper .input {
+	width: 256px;
+	height: 40px;
+	padding: 8px;
+	font-size: 16px;
+	font-weight: 200;
+}
+#calculator-wrapper .input.editable {
+	overflow: hidden;
+	word-wrap: initial;
+	white-space: nowrap;
+}
+#calculator-wrapper .button {
+	width: 256px;
+	height: 30px;
+	font-size: 18px;
+	font-weight: 200;
+	padding: 7px 8px 5px;
+	border-radius: 2px;
+	border: none;
+	box-shadow: 1px 1px 1px #333333;
+}
+
+/*
+Page Specific Styles
+*/
+
+/* Page 1 (Intro) */
+#calculator-wrapper #page-1 .page-aligner {
+	height: 85%;
+}
+#calculator-wrapper #page-1 .title {
+	max-width: 260px;
+}
+#calculator-wrapper #page-1 .body-text {
+	margin: 0px auto 40px;
+}
+#calculator-wrapper #page-1 .sub-text {
+	margin: 40px auto 0px;
+}
+
+/* Page 2 (Members of Household) */
+#calculator-wrapper #page-2 .page-aligner {
+	height: 70%;
+}
+
+/* Page 3 (Member DOBs) */
+#calculator-wrapper #page-3 .row {
+	max-width: 400px;
+}
+#calculator-wrapper #page-3 .page-aligner {
+	height: 70%;
+}
+#calculator-wrapper #page-3 .scroll-mask {
+	width: 400px;
+	max-width: 400px;
+	max-height: 220px;
+	overflow: hidden;
+}
+#calculator-wrapper #page-3 .scroll-mask .scroll-container {
+	width: 100%;
+	width: 415px;
+	max-height: 220px;
+	overflow: hidden;
+	overflow-y: scroll;
+}
+#calculator-wrapper #page-3 .scroll-mask .scroll-container .inputs {
+	max-width: 400px;
+	width: 100%;
+	height: 100%;
+}
+#calculator-wrapper #page-3 .name-dob {
+	max-width: 400px;
+}
+#calculator-wrapper #page-3 .name-dob .name, #calculator-wrapper #page-3 .input {
+	display: inline-block;
+}
+#calculator-wrapper #page-3 .name-dob .name {
+	width: auto;
+	max-width: 140px;
+	min-width: 60px;
+}
+#calculator-wrapper #page-3 .name-dob .dob {
+	display: inline-block;
+	position: relative;
+	max-width: 220px;
+}
+#calculator-wrapper #page-3 .name-dob .dob .day, #calculator-wrapper #page-3 .name-dob .dob .month {
+	width: 64px;
+	background: url(../img/arrow.svg) 84% / 14px no-repeat;
+}
+#calculator-wrapper #page-3 .name-dob .dob .year {
+	width: 78px;
+	background: url(../img/arrow.svg) 90% / 14px no-repeat;
+}
+
+/* Page 4 (Expected Income) */
+#calculator-wrapper #page-4 .page-aligner {
+	height: 70%;
+}
+
+/* Page 5 (Location / Zip code) */
+#calculator-wrapper #page-5 .page-aligner {
+	height: 70%;
+}
+
+/* Page 6 (Results) */
+#calculator-wrapper #page-6 .row {
+	max-width: 400px;
+}
+#calculator-wrapper #page-6 .page-aligner {
+	height: 70%;
+}
+#calculator-wrapper #page-6 .output {
+	position: relative;
+	height: 24px;
+	max-width: 384px;
+	width: 100%;
+	padding: 8px;
+	text-align: left;
+}
+#calculator-wrapper #page-6 .output .label {
+	position: absolute;
+	left: 8px;
+}
+#calculator-wrapper #page-6 .output .value {
+	position: absolute;
+	right: 8px;
+}
+
+/* Page 7 (Disclosures) */
+#calculator-wrapper #disclosures .page-aligner {
+	height: 70%;
+}
+#calculator-wrapper #disclosures .body-text {
+	font-size: 14px;
+	max-width: 364px;
+	text-align: left;
 }

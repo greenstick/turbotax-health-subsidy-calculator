@@ -16,198 +16,229 @@ Author: Benjamin Cordier
 	<link href="css/calculator.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
-	<div id="calculator-wrapper" class="container">
-		<div id="page-1" class="page">
-			<div class="row icon">
-				<img src="img/icon-1.svg" />
-			</div>
-			<div class="row title">
-				Are you eligible<br />
-				for subsidy?
-			</div>
-			<div class="row body-text">
-				As part of the Affordable Care Act (ACA), you may<br />
-				be eligible for a discount on your health insurance<br />
-				premiums. Find out if you might qualify.
-			</div>
-			<div class="row start button orange navigation" data-to='2'>
-				Get Started
-			</div>
-			<div class="row sub-text">
-				<span class="underlined navigation" data-to='enterDisclosures'>Disclosures</span>
-			</div>
-		</div>
-		<div id="page-2" class="page">
-			<div class="row nav">
-				<div class="back navigation" data-to="1">
-					<img src="img/back.svg" />
+	<div id="calculator-wrapper" class="container deepblue-bg">
+		<div class="pages">
+			<div id="page-1" class="page white-bg">
+				<div class="page-aligner">
+					<div class="page-content">
+						<div class="row icon">
+							<img src="img/icon-1.svg" />
+						</div>
+						<div class="row title deepblue">
+							Are you eligible
+							for subsidy?
+						</div>
+						<div class="row body-text darkgrey">
+							As part of the Affordable Care Act (ACA), you may
+							be eligible for a discount on your health insurance
+							premiums. Find out if you might qualify.
+						</div>
+						<div class="row start button orange-bg white navigation" data-to='2'>
+							Get Started
+						</div>
+						<div class="row sub-text">
+							<span class="underlined navigation" data-to='enterDisclosures'>Disclosures</span>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="row icon">
-				<img src="img/icon-2.svg" />
-			</div>
-			<div class="row lead">
-				How many people live in your household?
-			</div>
-			<select class="row input">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-			</select>
-			<div class="row next button navigation" data-to="3">
-				Next
-			</div>
-			<div class="row sub-text">
-				Your household is generally considered to be<br />
-				you, your spouse if you’re married, and your tax<br />
-				dependents. For more information, visit<br />
-				<a href="https://www.healthcare.gov" class="underlined">HealthCare.gov</a> and additional resources<br />
-				at <a href="https://www.ehealthinsurance.com" class="underlined">ehealth.com</a>.
-			</div>
-		</div>
-		<div id="page-3" class="page">
-			<div class="row nav">
-				<div class="back navigation" data-to="2">
-					<img src="img/back.svg" />
-				</div>
-				<div class="restart navigation" data-to="1">
-					<img src="img/restart.svg" />
+			<div id="page-2" class="page white-bg">
+				<div class="page-aligner">
+					<div class="page-content">
+						<div class="nav">
+							<div class="back navigation" data-to="1">
+								<img src="img/back.svg" />
+							</div>
+						</div>
+						<div class="row icon">
+							<img src="img/icon-2.svg" />
+						</div>
+						<div class="row lead skyblue">
+							How many people live in
+							your household?
+						</div>
+						<select class="row input" data-bind="options: houseMemberValues, value: houseMembers, optionsCaption: 'Number of people'"></select>
+						<div class="row next button skyblue-bg white navigation" data-to="3">
+							Next
+						</div>
+						<div class="row sub-text">
+							Your household is generally considered to be
+							you, your spouse if you’re married, and your tax
+							dependents. For more information, visit
+							<a href="https://www.healthcare.gov" class="underlined" target="_blank">HealthCare.gov</a> and additional resources
+							at <a href="https://www.ehealthinsurance.com" class="underlined" target="_blank">ehealth.com</a>.
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="icon">
-				<img src="img/icon-3.svg" />
-			</div>
-			<div class="lead">
-				Whern were you born?
-			</div>
-			<div class="inputs" data-bind="">
-				<div class="name-dob">
-
+			<div id="page-3" class="page white-bg">
+				<div class="page-aligner">
+					<div class="page-content">
+						<div class="nav">
+							<div class="back navigation" data-to="2">
+								<img src="img/back.svg" />
+							</div>
+							<div class="restart navigation" data-to="1">
+								<img src="img/restart.svg" />
+							</div>
+						</div>
+						<div class="row icon">
+							<img src="img/icon-3.svg" />
+						</div>
+						<div class="row lead skyblue">
+							When were you born?
+						</div>
+						<div class="row scroll-mask">
+							<div class="scroll-container">
+								<div class="inputs" data-bind="foreach: nameDatesArray">
+									<div class="name-dob" data-bind="css: element">
+										<input class="input name skyblue" type="text" data-bind="value: name, attr: {placeholder: 'Name of person ' + (index + 1)}" name="name" pattern="[a-zA-Z]*" maxlength="32">
+										<div class="dob">
+											<select class="input day" data-bind="options: $root.dayValues, value: day, optionsCaption: 'DD'"></select>
+											<select class="input month" data-bind="options: $root.monthValues, value: month, optionsCaption: 'MM'"></select>
+											<select class="input year" data-bind="options: $root.yearValues, value: year, optionsCaption: 'YYYY'"></select>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row next button skyblue-bg white navigation" data-to="4">
+							Next
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="row next button navigation" data-to="4">
-				Next
-			</div>
-		</div>
-		<div id="page-4" class="page">
-			<div class="row nav">
-				<div class="back navigation" data-to="3">
-					<img src="img/back.svg" />
-				</div>
-				<div class="restart navigation" data-to="1">
-					<img src="img/restart.svg" />
-				</div>
-			</div>
-			<div class="row icon">
-				<img src="img/icon-4.svg" />
-			</div>
-			<div class="row lead">
-				What do you expect<br />
-				your household income<br />
-				to be in 2016?
-			</div>
-			<input class="input number" data-bind="commaNum: houseIncome()" type="text" placeholder="0.00" name="houseIncome" pattern="[0-9,.]*" maxlength="10">
-			<div class="row next button navigation" data-to="5">
-				Next
-			</div>
-			<div class="row sub-text">
-				Use the <span class="underlined">income estimator</span> tool to help<br />
-				estimate your income.
-			</div>
-		</div>
-		<div id="page-5" class="page">
-			<div class="row nav">
-				<div class="back navigation" data-to="4">
-					<img src="img/back.svg" />
-				</div>
-				<div class="restart navigation" data-to="1">
-					<img src="img/restart.svg" />
+			<div id="page-4" class="page white-bg">
+				<div class="page-aligner">
+					<div class="page-content">
+						<div class="nav">
+							<div class="back navigation" data-to="3">
+								<img src="img/back.svg" />
+							</div>
+							<div class="restart navigation" data-to="1">
+								<img src="img/restart.svg" />
+							</div>
+						</div>
+						<div class="row icon">
+							<img src="img/icon-4.svg" />
+						</div>
+						<div class="row lead skyblue">
+							What do you expect
+							your household income
+							to be in 2016?
+						</div>
+						<input class="row input skyblue number" data-bind="commaNumber: houseIncome, value: houseIncome, valueUpdate: 'keypress'" type="number" pattern="[0-9,.]*" placeholder="0.00" name="houseIncome" maxlength="10">
+						<div class="row next button skyblue-bg white navigation" data-to="5">
+							Next
+						</div>
+						<div class="row sub-text">
+							Use the <a href="" class="underlined" target="_blank">income estimator</a> tool to help
+							estimate your income.
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="row icon">
-				<img src="img/icon-5.svg" />
-			</div>
-			<div class="row lead">
-				Where do you live?
-			</div>
-			<input class="input zipcode" type="text" placeholder="Zip code" name="zipcode" pattern="[0-9]*" maxlength="5">
-			<div class="sub-text">
-				<span class="underlined">See if you qualify for an exemption.</span>
-			</div>
-			<div class="row submit button navigation" data-to="6">
-				Submit
-			</div>
-		</div>
-		<div id="page-6" class="page">
-			<div class="row nav">
-				<div class="back navigation" data-to="5">
-					<img src="img/back.svg" />
-				</div>
-				<div class="restart navigation" data-to="1">
-					<img src="img/restart.svg" />
-				</div>
-			</div>
-			<div class="lead">
-				RESULTS
-			</div>
-			<div class="body-text">
-				Based on the information you provided, you might<br />
-				qualify for the following subsidy, which can be<br />
-				applied to your health care costs:
-			</div>
-			<div class="row output annual">
-				<span class="lead">*Annual Household Subsidy</span><span class="dollars">$</span><span class="value" data-bind="commaNum: annualSubsidy"></span>
-			</div>
-			<div class="row output monthly">
-				<span class="lead">*Monthly Household Subsidy</span><span class="dollars">$</span><span class="value" data-bind="commaNum: monthlySubsidy"></span>
-			</div>
-			<div class="row sub-text">
-				*Smokers can be charged up to 50% more for their premiums. This is due<br />
-				to a "tobacco surcharge." Visit <a href="https://www.healthcare.gov" class="underlined">HealthCare.gov</a> for more information.
-			</div>
-			<div class="row submit button green navigation" data-to="6">
-				Start TurboTax
-			</div>
-			<div class="row sub-text">
-				<a href="https://www.ehealthinsurance.com" class="underlined">Powered by eHealth</a>
-			</div>
-			<div class="row sub-text">
-				<span class="underlined navigation" data-to="enterDisclosures">Disclosures</span>
-			</div>
-		</div>
-		<div id="disclosures" class="page">
-			<div class="row nav">
-				<div class="back navigation" data-to="exitDisclosures">
-					<img src="img/back.svg" />
+			<div id="page-5" class="page white-bg">
+				<div class="page-aligner">
+					<div class="page-content">
+						<div class="nav">
+							<div class="back navigation" data-to="4">
+								<img src="img/back.svg" />
+							</div>
+							<div class="restart navigation" data-to="1">
+								<img src="img/restart.svg" />
+							</div>
+						</div>
+						<div class="row icon">
+							<img src="img/icon-5.svg" />
+						</div>
+						<div class="row lead skyblue">
+							Where do you live?
+						</div>
+						<input class="row input skyblue zipcode" data-bind="value: zipcode" type="text" placeholder="Zip code" name="zipcode" pattern="[0-9]*" maxlength="5">
+						<div class="row sub-text">
+							<span class="underlined">See if you qualify for an exemption.</span>
+						</div>
+						<div class="row submit button skyblue-bg white navigation" data-to="6">
+							Submit
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="row lead">
-				Disclosures
+			<div id="page-6" class="page white-bg">
+				<div class="page-aligner">
+					<div class="page-content">
+						<div class="nav">
+							<div class="back navigation" data-to="5">
+								<img src="img/back.svg" />
+							</div>
+							<div class="restart navigation" data-to="1">
+								<img src="img/restart.svg" />
+							</div>
+						</div>
+						<div class="row lead skyblue">
+							RESULTS
+						</div>
+						<div class="row body-text">
+							Based on the information you provided, you might
+							qualify for the following subsidy, which can be
+							applied to your health care costs:
+						</div>
+						<div class="row output skyblue-bg white annual">
+							<span class="label">*Annual Household Subsidy</span><span class="value" data-bind="monetaryNumber: annualSubsidy"></span>
+						</div>
+						<div class="row output deepblue-bg white monthly">
+							<span class="label">*Monthly Household Subsidy</span><span class="value" data-bind="monetaryNumber: monthlySubsidy"></span>
+						</div>
+						<div class="row sub-text">
+							*Smokers can be charged up to 50% more for their premiums. This is due
+							to a "tobacco surcharge." Visit <a href="https://www.healthcare.gov" class="underlined" target="_blank">HealthCare.gov</a> for more information.
+						</div>
+						<a href="https://turbotax.intuit.com/" target="_blank">
+							<div class="row submit button green-bg white navigation" data-to="6">
+								Start TurboTax
+							</div>
+						</a>
+						<div class="row sub-text">
+							<a href="https://www.ehealthinsurance.com" class="underlined" target="_blank">Powered by eHealth</a>
+						</div>
+						<div class="row sub-text">
+							<span class="underlined navigation" data-to="enterDisclosures">Disclosures</span>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="row body-text">
-				This subsidy calculator is designed to estimate if you<br />
-				might be eligible for a subsidy to help purchase<br />
-				healthcare coverage based on the information you<br />
-				entered. Be aware your eligibility and any actual subsidy<br />
-				may vary with additional information, and final authority<br />
-				on whether or not you’ll qualify for a subsidy to buy<br />
-				health insurance will be made by the government health<br />
-				insurance exchange. Please contact your state’s Medicaid<br />
-				office or Marketplace with enrollment questions.
-			</div>
-			<div class="row body-text">
-				Subsidy calculations attributed to eHealth.
-				Visit <a href="https://www.ehealthinsurance.com" class="underlined">eHealthInsurance.com</a> for more information.
-			</div>
-			<div class="row body-text">
-				Source: <a href="https://www.healthcare.gov" class="underlined">HealthCare.gov</a>
+			<div id="disclosures" class="page white-bg">
+				<div class="page-aligner">
+					<div class="page-content">
+						<div class="row nav">
+							<div class="back navigation" data-to="exitDisclosures">
+								<img src="img/back.svg" />
+							</div>
+						</div>
+						<div class="row title deepblue">
+							Disclosures
+						</div>
+						<div class="row body-text darkgrey">
+							This subsidy calculator is designed to estimate if you
+							might be eligible for a subsidy to help purchase
+							healthcare coverage based on the information you
+							entered. Be aware your eligibility and any actual subsidy
+							may vary with additional information, and final authority
+							on whether or not you’ll qualify for a subsidy to buy
+							health insurance will be made by the government health
+							insurance exchange. Please contact your state’s Medicaid
+							office or Marketplace with enrollment questions.
+						</div>
+						<div class="row body-text darkgrey">
+							Subsidy calculations attributed to eHealth.<br />
+							Visit <a href="https://www.ehealthinsurance.com" class="underlined" target="_blank">eHealthInsurance.com</a> for more information.
+						</div>
+						<div class="row body-text darkgrey">
+							Source: <a href="https://www.healthcare.gov" class="underlined" target="_blank">HealthCare.gov</a>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- Footer Logos -->
@@ -217,10 +248,12 @@ Author: Benjamin Cordier
 		</div>
 	</div>
 <!-- JS -->
-	<script src="js/lib/jquery.min.js" type="text/javascript"></script>
-	<script src="js/lib/ko.min.js" type="text/javascript"></script>
-	<script src="js/lib/numeral.min.js" type="text/javascript"></script>
-	<script src="js/calculator.js" type="text/javascript"></script>
+	<script src="js/lib/jquery.min.js" type="application/javascript"></script>
+	<script src="js/lib/ko.min.js" type="application/javascript"></script>
+	<script src="js/lib/numeral.min.js" type="application/javascript"></script>
+	<script src="js/lib/tether.min.js" type="application/javascript"></script>
+	<script src="js/lib/select.min.js" type="application/javascript"></script>
+	<script src="js/calculator.js" type="application/javascript"></script>
 <!-- Image Pre-loader -->
 	<script>
 	var images=['img/logos/c5.svg','img/logos/tt.svg','img/icon-1.svg','img/icon-2.svg','img/icon-3.svg','img/icon-4.svg','img/icon-5.svg'],k=null,img=null;for(var i=0,l=images.length;i<l;i++){if(images.hasOwnProperty(k)){img=new Image();img.src=images[k];images[k]=img;};};
