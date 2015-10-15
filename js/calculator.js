@@ -65,6 +65,7 @@ Calculator.prototype 	= {
 		this.yearElement	 	= config.yearElement,
 		this.navigation 		= config.navigation,
 		this.navigationValidate = config.navigationValidate,
+		this.submitElement 		= config.submitElement,
 		this.page 				= config.page,
 		this.pageCount 			= config.page.count,
 		this.currentPage 		= config.page.start,
@@ -121,8 +122,8 @@ Calculator.prototype 	= {
 		if (validate === true) {
 			// Default Navigation
 			var l = $(self.page.indexTag + self.currentPage + " " + ".input:invalid").length;
-			console.log($(self.page.indexTag + self.currentPage + " " + ".input:invalid"));
-			console.log(l);
+			// console.log($(self.page.indexTag + self.currentPage + " " + ".input:invalid"));
+			// console.log(l);
 			if (l === undefined) {
 				$(self.page.indexTag + self.currentPage).hide();
 				$(self.page.indexTag + page).show();
@@ -327,18 +328,20 @@ $(calculator.yearElement).keypress(function() {
 });
 
 // Static Navigation Binding
-$(calculator.navigation).on("click touchend", function (e) {
+$(calculator.navigation).on("click touchend pointerup", function (e) {
 	var page = $(this).data("to");
 	calculator.navigateTo(page, false);
 });
 
 // Validate Navigation Binding
-$(calculator.navigationValidate).on("click touchend", function (e) {
+$(calculator.navigationValidate).on("click touchend pointerup", function (e) {
 	var page = $(this).data("to");
 	calculator.navigateTo(page, true);
 });
 
 // Submit Binding
-$(calculator.submitElement).on("click touchend", function (e) {
+$(calculator.submitElement).on("click touchend pointerup", function (e) {
+	var page = $(this).data("to");
+	calculator.navigateTo(page, true);
 	calculator.queryAPI();
 });

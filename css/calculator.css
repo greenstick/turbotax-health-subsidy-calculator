@@ -6,6 +6,13 @@ Author: Benjamin Cordier
 */
 
 /*
+max-width
+580px
+first bp
+525 - 767px
+*/
+
+/*
 Fonts
 */
 
@@ -248,7 +255,7 @@ Brand Styles
 Navigation Styles
 */
 
-#calculator-wrapper .navigation {
+#calculator-wrapper .navigation, #calculator-wrapper .submit {
 	cursor: pointer;
 }
 #calculator-wrapper .back.navigation {

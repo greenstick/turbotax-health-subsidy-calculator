@@ -29,7 +29,6 @@ $app->get('/getSubsidy/:json', function ($json) use ($app) {
 	$jsonData 		= json_decode($json);
 	$eHealthURL 	= "https://api.ehealth.com/v1/subsidy/estimate?";
 	$queryString 	= "";
-	// tax_family_size=4&primary_dob=03-18-1979&spouse_dob=12-26-1982&child_dob=07-15-1988&income=20000&zip_code=92603
 	$jsonData = json_decode($json);
 	if (isset($jsonData->tax_family_size)) {
 		$queryString .= 'tax_family_size=' . urlencode($jsonData->tax_family_size) . '&';
