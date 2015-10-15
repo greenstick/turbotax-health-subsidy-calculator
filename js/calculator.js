@@ -9,16 +9,20 @@ Author: Benjamin Cordier
 Knockout Custom Bindings
 */
 	
+/*
+Knockout Custom Bindings
+*/
+	
 // Comma Number Binding
-ko.bindingHandlers.commaNumber = {
-	init: function (element, valueAccessor) {
-		value = numeral(ko.utils.unwrapObservable(valueAccessor())).format('0,0.00');
+ko.bindingHandlers.commaNumber  	= {
+	init 	: function (element, valueAccessor) {
+		var value = numeral(ko.utils.unwrapObservable(valueAccessor())).format('0,0.00');
 		console.log(value);
 		$(element).text(value);
 		return value
 	},
-	update: function (element, valueAccessor) {
-		value = numeral(ko.utils.unwrapObservable(valueAccessor())).format('0,0.00');
+	update 	: function (element, valueAccessor) {
+		var value = numeral(ko.utils.unwrapObservable(valueAccessor())).format('0,0.00');
 		console.log(value);
 		$(element).text(value);
 		return value
@@ -26,14 +30,14 @@ ko.bindingHandlers.commaNumber = {
 };
 
 // Monetary Number Binding
-ko.bindingHandlers.monetaryNumber = {
-	init: function (element, valueAccessor) {
-		value = numeral(ko.utils.unwrapObservable(valueAccessor())).format('$0,0.00');
+ko.bindingHandlers.monetaryNumber  	= {
+	init 	: function (element, valueAccessor) {
+		var value = numeral(ko.utils.unwrapObservable(valueAccessor())).format('$0,0.00');
 		$(element).text(value);
 		return value
 	},
-	update: function (element, valueAccessor) {
-		value = numeral(ko.utils.unwrapObservable(valueAccessor())).format('$0,0.00');
+	update 	: function (element, valueAccessor) {
+		var value = numeral(ko.utils.unwrapObservable(valueAccessor())).format('$0,0.00');
 		$(element).text(value);
 		return value
 	}
@@ -51,7 +55,7 @@ Calculator.prototype 	= {
 	// Constructor Function
 	__init__ 				: function (config) {
 		var self = this;
-		this.postURL 			= config.postURL,
+		this.getURL 			= config.getURL,
 		this.element 			= config.element,
 		this.inputElement 		= config.inputElement,
 		this.nameDateElement 	= config.nameDateElement,
@@ -60,6 +64,7 @@ Calculator.prototype 	= {
 		this.monthElement 		= config.monthElement,
 		this.yearElement	 	= config.yearElement,
 		this.navigation 		= config.navigation,
+		this.navigationValidate = config.navigationValidate,
 		this.page 				= config.page,
 		this.pageCount 			= config.page.count,
 		this.currentPage 		= config.page.start,
@@ -82,7 +87,7 @@ Calculator.prototype 	= {
 					day 	: undefined,
 					month 	: undefined,
 					year 	: undefined
-				})
+				});
 			} else {
 				for (var i = 0; i < self.houseMembers(); i++) {
 					var nameDate = {
@@ -101,7 +106,6 @@ Calculator.prototype 	= {
 		this.houseIncome 		= ko.observable(undefined),
 		this.houseIncomeValue 	= ko.computed(function () {
 			return numeral().unformat(self.houseIncome());
-			console.log(numeral().unformat(self.houseIncome()));
 		}),
 		this.zipcode 			= ko.observable(undefined),
 		this.annualSubsidy 		= ko.observable(0),
@@ -112,40 +116,113 @@ Calculator.prototype 	= {
 		return this;
 	},
 	// Render Page Method
-	navigateTo				: function (page) {
+	navigateTo				: function (page, validate) {
 		var self = this;
-		if (page === "enterDisclosures") {
-			// Enter Disclosures Page
-			$(self.page.indexTag + self.currentPage).hide();
-			$(self.element + " #disclosures").show();
-		} else if (page === "exitDisclosures") {
-			// Exit Disclosures Page
-			$(self.element + " #disclosures").hide();
-			$(self.page.indexTag + self.currentPage).show();
-		} else if (page === 1) {
-			// Restart
-			$(self.page.indexTag + self.currentPage).hide();
-			$(self.page.indexTag + page).show();
-			self.previousPage 	= self.currentPage;
-			self.currentPage 	= page;
-			self.houseMembers(undefined);
-			self.nameDatesArray([]);
-			self.houseIncome(undefined);
-			self.zipcode(undefined)
-			self.annualSubsidy(0);
-			self.monthlySubsidy(0);
-		} else {
+		if (validate === true) {
 			// Default Navigation
-			$(self.page.indexTag + self.currentPage).hide();
-			$(self.page.indexTag + page).show();
-			self.previousPage 	= self.currentPage;
-			self.currentPage 	= page;
+			var l = $(self.page.indexTag + self.currentPage + " " + ".input:invalid").length;
+			console.log($(self.page.indexTag + self.currentPage + " " + ".input:invalid"));
+			console.log(l);
+			if (l === undefined) {
+				$(self.page.indexTag + self.currentPage).hide();
+				$(self.page.indexTag + page).show();
+				self.previousPage 	= self.currentPage;
+				self.currentPage 	= page;
+			} else if (l > 0) {
+				return
+			} else {
+				$(self.page.indexTag + self.currentPage).hide();
+				$(self.page.indexTag + page).show();
+				self.previousPage 	= self.currentPage;
+				self.currentPage 	= page;
+			}
+		} else {
+			if (page === "enterDisclosures") {
+				// Enter Disclosures Page
+				$(self.page.indexTag + self.currentPage).hide();
+				$(self.element + " #disclosures").show();
+			} else if (page === "exitDisclosures") {
+				// Exit Disclosures Page
+				$(self.element + " #disclosures").hide();
+				$(self.page.indexTag + self.currentPage).show();
+			} else if (page === 1) {
+				// Restart
+				$(self.page.indexTag + self.currentPage).hide();
+				$(self.page.indexTag + page).show();
+				self.previousPage 	= self.currentPage;
+				self.currentPage 	= page;
+				self.houseMembers(undefined);
+				self.nameDatesArray([]);
+				self.houseIncome(undefined);
+				self.zipcode(undefined)
+				self.annualSubsidy(0);
+				self.monthlySubsidy(0);
+			} else {
+				$(self.page.indexTag + self.currentPage).hide();
+				$(self.page.indexTag + page).show();
+				self.previousPage 	= self.currentPage;
+				self.currentPage 	= page;
+			}
 		}
 		return this;
 	},
 	// Query API
-	queryAPI 				: function (args) {
-		var self = this;
+	queryAPI 				: function () {
+		var self = this,
+			obj  = {};
+		// Setup Query JSON
+		obj["tax_family_size"] 	= self.houseMembers();
+		obj["income"] 			= self.houseIncome();
+		obj["zip_code"] 		= self.zipcode();
+		if (self.houseMembers() < 2) {
+			var primary = self.nameDatesArray()[0];
+			obj["primary_dob"] 		= primary.month + "-" + primary.day + "-" + primary.year;
+		} else if (self.houseMembers() < 3) {
+			var primary = self.nameDatesArray()[0],
+				spouse 	= self.nameDatesArray()[1];
+			obj["primary_dob"] 		= primary.month + "-" + primary.day + "-" + primary.year;
+			obj["spouse_dob"] 		= spouse.month + "-" + spouse.day + "-" + spouse.year;
+		} else {
+			var primary = self.nameDatesArray()[0],
+				spouse 	= self.nameDatesArray()[1],
+				childs 	= '';
+			obj["primary_dob"] 		= primary.month + "-" + primary.day + "-" + primary.year;
+			obj["spouse_dob"] 		= spouse.month + "-" + spouse.day + "-" + spouse.year;
+			for (var i = 2; i < self.nameDatesArray().length; i++) {
+				var child = self.nameDatesArray()[i];
+				if (i === self.nameDatesArray().length - 1) {
+					childs += child.month + "-" + child.day + "-" + child.year;
+				} else {
+					childs += child.month + "-" + child.day + "-" + child.year + ",";
+				}
+			}
+			obj["children_dob"] 	= childs;
+		}
+		// Submit to API
+		$.ajax({
+			url: self.getURL + JSON.stringify(obj),
+			type: "GET",
+			contentType: "application/json",
+			dataType: "json",
+		}).done(function (data) {
+			console.log("XHR Status: Response Received.")
+			try {
+				if (data.response.estimates[0].subsidy.annual) {
+					self.annualSubsidy(data.response.estimates[0].subsidy.annual);
+				}
+				if (data.response.estimates[0].subsidy.monthly) {
+					self.monthlySubsidy(data.response.estimates[0].subsidy.monthly);
+				}
+			} catch (error) {
+				for (var i = 0; i < data.error.errors.length; i++) {
+					console.log("Error:", data.error.errors[i].message, "-", data.error.errors[i].actual);
+				}
+			}
+		}).fail(function (error) {
+			console.log("Error: There was a problem connecting to the API, our apologies! Please try again later.")
+		}).always(function () {
+			console.log("XHR Status: Request Complete.")
+		});
 	}
 };
 
@@ -157,11 +234,13 @@ var config 		= {
 	element 				: '#calculator-wrapper',
 	inputElement 			: '#calculator-wrapper .input',
 	navigation 				: '#calculator-wrapper .navigation',
+	navigationValidate 		: '#calculator-wrapper .navigation.validate',
 	nameDateElement 		: '#calculator-wrapper .name-dob',
 	nameDateClass 			: 'name-dob-',
 	dayElement 				: '#calculator-wrapper .input.day',
 	monthElement 			: '#calculator-wrapper .input.month',
 	yearElement 			: '#calculator-wrapper .input.year',
+	submitElement 			: '#calculator-wrapper .submit',
 	numKeys 				: [44, 46, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57], // An Array Of ASCII Number Key Codes,
 	zipKeys 				: [48, 49, 50, 51, 52, 53, 54, 55, 56, 57],
 	editKeys 				: [8, 9, 37, 38, 39, 40, 127], // An Array Of ASCII Edit Key Codes (Arrows, Tabs, Backspace, Delete)
@@ -174,7 +253,7 @@ var config 		= {
 		start 					: 1,
 		count 					: 7
 	},
-	postURL 					: ''
+	getURL 					: 'api.php/getSubsidy/'
 };
 
 var calculator 	= new Calculator(config);
@@ -186,7 +265,7 @@ Apply Bindings
 ko.applyBindings(calculator, document.getElementById(calculator.element));
 
 /*
-Calculator Event Bindings
+Calculator jQuery Event Bindings
 */
 
 // Zipcode Content Editable Input
@@ -247,8 +326,19 @@ $(calculator.yearElement).keypress(function() {
     }
 });
 
-// Navigation Binding
+// Static Navigation Binding
 $(calculator.navigation).on("click touchend", function (e) {
 	var page = $(this).data("to");
-	calculator.navigateTo(page);
+	calculator.navigateTo(page, false);
+});
+
+// Validate Navigation Binding
+$(calculator.navigationValidate).on("click touchend", function (e) {
+	var page = $(this).data("to");
+	calculator.navigateTo(page, true);
+});
+
+// Submit Binding
+$(calculator.submitElement).on("click touchend", function (e) {
+	calculator.queryAPI();
 });

@@ -116,6 +116,7 @@ Core Styles
 	text-decoration: underline;
 	color: #666666;
 	padding: 4px;
+	cursor: poiner;
 }
 #calculator-wrapper .underlined:hover, #calculator-wrapper a:active {
 	color: #0082c3;

@@ -57,8 +57,8 @@ Author: Benjamin Cordier
 							How many people live in
 							your household?
 						</div>
-						<select class="row input" data-bind="options: houseMemberValues, value: houseMembers, optionsCaption: 'Number of people'"></select>
-						<div class="row next button skyblue-bg white navigation" data-to="3">
+						<select class="row input houseMembers" data-bind="options: houseMemberValues, value: houseMembers, optionsCaption: 'Number of people'" required></select>
+						<div class="row next button skyblue-bg white navigation validate" data-to="3">
 							Next
 						</div>
 						<div class="row sub-text">
@@ -92,17 +92,17 @@ Author: Benjamin Cordier
 							<div class="scroll-container">
 								<div class="inputs" data-bind="foreach: nameDatesArray">
 									<div class="name-dob" data-bind="css: element">
-										<input class="input name skyblue" type="text" data-bind="value: name, attr: {placeholder: 'Name of person ' + (index + 1)}" name="name" pattern="[a-zA-Z]*" maxlength="32">
+										<input class="input name skyblue" type="text" data-bind="value: name, attr: {placeholder: 'Name of person ' + (index + 1)}" name="name" pattern="[a-zA-Z]*" maxlength="32" required>
 										<div class="dob">
-											<select class="input day" data-bind="options: $root.dayValues, value: day, optionsCaption: 'DD'"></select>
-											<select class="input month" data-bind="options: $root.monthValues, value: month, optionsCaption: 'MM'"></select>
-											<select class="input year" data-bind="options: $root.yearValues, value: year, optionsCaption: 'YYYY'"></select>
+											<select class="input day" data-bind="options: $root.dayValues, value: day, optionsCaption: 'DD'" required></select>
+											<select class="input month" data-bind="options: $root.monthValues, value: month, optionsCaption: 'MM'" required></select>
+											<select class="input year" data-bind="options: $root.yearValues, value: year, optionsCaption: 'YYYY'" required></select>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="row next button skyblue-bg white navigation" data-to="4">
+						<div class="row next button skyblue-bg white navigation validate" data-to="4">
 							Next
 						</div>
 					</div>
@@ -127,8 +127,8 @@ Author: Benjamin Cordier
 							your household income
 							to be in 2016?
 						</div>
-						<input class="row input skyblue number" data-bind="commaNumber: houseIncome, value: houseIncome, valueUpdate: 'keypress'" type="number" pattern="[0-9,.]*" placeholder="0.00" name="houseIncome" maxlength="10">
-						<div class="row next button skyblue-bg white navigation" data-to="5">
+						<input class="row input skyblue number houseIncome" data-bind="commaNumber: houseIncome(), value: houseIncome, valueUpdate: 'keypress'" type="number" pattern="[0-9,.]*" placeholder="0.00" name="houseIncome" maxlength="10" required>
+						<div class="row next button skyblue-bg white navigation validate" data-to="5">
 							Next
 						</div>
 						<div class="row sub-text">
@@ -155,11 +155,11 @@ Author: Benjamin Cordier
 						<div class="row lead skyblue">
 							Where do you live?
 						</div>
-						<input class="row input skyblue zipcode" data-bind="value: zipcode" type="text" placeholder="Zip code" name="zipcode" pattern="[0-9]*" maxlength="5">
+						<input class="row input skyblue zipcode" data-bind="value: zipcode" type="text" placeholder="Zip code" name="zipcode" pattern="[0-9]*" maxlength="5" required>
 						<div class="row sub-text">
 							<span class="underlined">See if you qualify for an exemption.</span>
 						</div>
-						<div class="row submit button skyblue-bg white navigation" data-to="6">
+						<div class="row submit button skyblue-bg white navigation validate" data-to="6">
 							Submit
 						</div>
 					</div>
