@@ -107,7 +107,8 @@ Core Styles
 	box-sizing: border-box;
 	text-align: center;
 	font-family: Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
-	background-color: #0082c3;
+	background-color: #4e86c2;
+	text-rendering: geometricPrecision;
 }
 #calculator-wrapper .pages {
 	position: relative;
@@ -117,8 +118,9 @@ Core Styles
 	background-color: transparent;
 }
 #calculator-wrapper .row {
-	margin: 10px auto;
+	margin: 20px auto;
 	max-width: 400px;
+	width: 80%;
 }
 #calculator-wrapper a {
 	color: #333333;
@@ -163,7 +165,7 @@ Brand Styles
 	color: #333333;
 }
 #calculator-wrapper .darkgrey {
-	color: #666666;
+	color: #1e4263;
 }
 #calculator-wrapper .grey {
 	color: #999999;
@@ -205,7 +207,7 @@ Brand Styles
 	background-color: #333333;
 }
 #calculator-wrapper .darkgrey-bg {
-	background-color: #666666;
+	background-color: #1e4263;
 }
 #calculator-wrapper .grey-bg {
 	background-color: #999999;
@@ -360,7 +362,7 @@ Page Element Styles
 */
 
 #calculator-wrapper .icon {
-	height: 142px;
+	height: 120px;
 }
 #calculator-wrapper .page .title {
 	position: relative;
@@ -382,6 +384,7 @@ Page Element Styles
 }
 #calculator-wrapper .input {
 	height: 40px;
+	text-align: left;
 }
 #calculator-wrapper .editable {
 	height: 22px;
@@ -626,32 +629,35 @@ Page Specific Styles
 	#calculator-wrapper #page-6 .lead {
 		margin-top: 56px;
 	}
-	#calculator-wrapper .title {
+	#calculator-wrapper .page .title {
 		font-weight: 200;
 		font-size: 24px;
 	}
-	#calculator-wrapper .lead {
+	#calculator-wrapper .page .lead {
+		font-weight: 200;
+		font-size: 22px;
+	}
+	#calculator-wrapper .page .button {
 		font-weight: 200;
 		font-size: 18px;
 	}
-	#calculator-wrapper .button {
-		font-weight: 200;
-		font-size: 18px;
-	}
-	#calculator-wrapper .cta {
+	#calculator-wrapper .page .cta {
 		font-weight: 400;
 		font-size: 18px;
 	}
-	#calculator-wrapper .body-text {
+	#calculator-wrapper .page .body-text {
 		font-weight: 400;
 		font-size: 12px;
 	}
-	#calculator-wrapper .sub-text {
+	#calculator-wrapper .page .sub-text {
 		font-weight: 400;
 		font-size: 10px;
 	}
 	#calculator-wrapper .input, #calculator-wrapper .editable {
 		font-size: 16px;
 		font-weight: 200;
+	}
+	#calculator-wrapper #page-3 .scroll-mask {
+		max-height: 156px;
 	}
 }

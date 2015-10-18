@@ -24,10 +24,10 @@ Author: Benjamin Cordier
 						<div class="row icon">
 							<img src="img/icon-1.svg" />
 						</div>
-						<div class="row title deepblue">
+						<div class="row title darkgrey">
 							Are you eligible for a "health insurance" subsidy?
 						</div>
-						<div class="row body-text darkgrey">
+						<div class="row body-text grey">
 							As part of the Affordable Care Act (ACA), you may
 							be eligible for a discount on your health insurance
 							premiums. Find out if you might qualify.
@@ -35,7 +35,7 @@ Author: Benjamin Cordier
 						<div class="row start button orange-bg white navigation" data-bind="click: function () { navigateTo(2) }">
 							Get Started
 						</div>
-						<div class="row sub-text">
+						<div class="row sub-text grey">
 							<span class="underlined navigation" data-bind="click: function () { navigateTo('enterDisclosures') }">Disclaimer</span>
 						</div>
 					</div>
@@ -57,7 +57,7 @@ Author: Benjamin Cordier
 						<div class="row icon">
 							<img src="img/icon-2.svg" />
 						</div>
-						<div class="row lead skyblue">
+						<div class="row lead darkgrey">
 							How many people live in
 							your household?
 						</div>
@@ -65,7 +65,7 @@ Author: Benjamin Cordier
 						<div class="row next button skyblue-bg white navigation disabled" data-bind="enable: houseMembers, css: {disabled: houseMembers() === undefined}, click: function () { navigateTo(3) }">
 							Next
 						</div>
-						<div class="row sub-text">
+						<div class="row sub-text grey">
 							Your household is generally considered to be
 							you, your spouse if you’re married, and your tax
 							dependents. For more information, visit
@@ -102,7 +102,7 @@ Author: Benjamin Cordier
 						<div class="row icon">
 							<img src="img/icon-3.svg" />
 						</div>
-						<div class="row lead skyblue">
+						<div class="row lead darkgrey">
 							When were you born?
 						</div>
 						<div class="row scroll-mask">
@@ -152,7 +152,7 @@ Author: Benjamin Cordier
 						<div class="row icon">
 							<img src="img/icon-4.svg" />
 						</div>
-						<div class="row lead skyblue">
+						<div class="row lead darkgrey">
 							What do you expect
 							your household income
 							to be in 2016?
@@ -161,7 +161,7 @@ Author: Benjamin Cordier
 						<div class="row next button skyblue-bg white navigation disabled" data-bind="enable: houseIncome, css: {disabled: houseIncome() === 0}, click: function () { navigateTo(5) }">
 							Next
 						</div>
-						<div class="row sub-text">
+						<div class="row sub-text grey">
 							Use the <a href="" class="underlined" target="_blank">income estimator</a> tool to help
 							estimate your income.
 						</div>
@@ -195,7 +195,7 @@ Author: Benjamin Cordier
 						<div class="row icon">
 							<img src="img/icon-5.svg" />
 						</div>
-						<div class="row lead skyblue">
+						<div class="row lead darkgrey">
 							Where do you live?
 						</div>
 						<input class="row input skyblue zipcode" data-bind="value: zipcode" type="text" placeholder="Zip code" name="zipcode" pattern="[0-9]*" maxlength="5" required>
@@ -229,10 +229,10 @@ Author: Benjamin Cordier
 
 							</div>
 						</div>
-						<div class="row lead skyblue">
+						<div class="row lead darkgrey">
 							RESULTS
 						</div>
-						<div class="row body-text">
+						<div class="row body-text grey">
 							Based on the information you provided, you might
 							qualify for the following subsidy, which can be
 							applied to your health care costs:
@@ -243,14 +243,14 @@ Author: Benjamin Cordier
 						<div class="row output deepblue-bg white monthly">
 							<span class="label">*Monthly Household Subsidy</span><span class="value" data-bind="formatNumber: monthlySubsidy, format: '$0,0.00'"></span>
 						</div>
-						<div class="row sub-text">
+						<div class="row sub-text grey">
 							*Smokers can be charged up to 50% more for their premiums. This is due
 							to a "tobacco surcharge." For health insurance options, visit <a href="https://www.healthcare.gov" class="underlined" target="_blank">HealthCare.gov</a> or <a href="https://www.ehealthinsurance.com" class="underlined" target="_blank">eHealth.com</a>.
 						</div>
-						<div class="row sub-text">
+						<div class="row sub-text grey">
 							<a href="https://www.ehealthinsurance.com" class="underlined" target="_blank">Powered by eHealth</a>
 						</div>
-						<div class="row sub-text">
+						<div class="row sub-text grey">
 							<span class="underlined navigation" data-bind="click: function () { navigateTo('enterDisclosures') }">Disclaimer</span>
 						</div>
 					</div>
@@ -272,7 +272,7 @@ Author: Benjamin Cordier
 						<div class="row title deepblue">
 							Disclaimer
 						</div>
-						<div class="row body-text darkgrey">
+						<div class="row body-text grey">
 							This subsidy calculator is designed to estimate if you
 							might be eligible for a subsidy to help purchase
 							healthcare coverage based on the information you
@@ -283,11 +283,11 @@ Author: Benjamin Cordier
 							insurance exchange. Please contact your state’s Medicaid
 							office or Marketplace with enrollment questions.
 						</div>
-						<div class="row body-text darkgrey">
+						<div class="row body-text grey">
 							Subsidy calculations attributed to eHealth.<br />
 							Visit <a href="https://www.ehealthinsurance.com" class="underlined" target="_blank">eHealthInsurance.com</a> for more information.
 						</div>
-						<div class="row body-text darkgrey">
+						<div class="row body-text grey">
 							Source: <a href="https://www.healthcare.gov" class="underlined" target="_blank">HealthCare.gov</a>
 						</div>
 					</div>
