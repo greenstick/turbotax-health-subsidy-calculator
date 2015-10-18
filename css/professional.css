@@ -43,7 +43,6 @@ Normalize & Native UI Mods
 	-moz-appearance: none;
 	appearance: none;
 	background: url(../img/arrow.svg) 96% / 6% no-repeat;
-	overflow: auto;
 	cursor: pointer;
 } 
 /*target Internet Explorer 9 and Internet Explorer 10:*/

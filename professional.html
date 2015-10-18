@@ -157,7 +157,7 @@ Author: Benjamin Cordier
 							your household income
 							to be in 2016?
 						</div>
-						<div class="row input skyblue number houseIncome editable placeholder" data-bind="formatNumber: houseIncome, format: '$0,0.00', value: houseIncome" name="houseIncome" maxlength="10" contenteditable></div>
+						<div class="row input skyblue number houseIncome editable placeholder" data-bind="formatNumber: houseIncome, format: '$0,0.00', value: houseIncome" type="number" name="houseIncome" maxlength="10" contenteditable></div>
 						<div class="row next button skyblue-bg white navigation disabled" data-bind="enable: houseIncome, css: {disabled: houseIncome() === 0}, click: function () { navigateTo(5) }">
 							Next
 						</div>
