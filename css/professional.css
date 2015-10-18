@@ -70,7 +70,7 @@ Normalize & Native UI Mods
 }
 #calculator-wrapper ::-webkit-input-placeholder {
 	font-weight: 200;
-	font-size: 16px
+	font-size: 16px;
 	font-style: italic;
 }
 #calculator-wrapper ::-moz-placeholder { 
@@ -91,11 +91,17 @@ Normalize & Native UI Mods
 #calculator-wrapper input:focus, #calculator-wrapper select:focus, #calculator-wrapper textarea:focus, #calculator-wrapper button:focus, #calculator-wrapper .input:focus {
     outline: none;
 }
+#calculator-wrapper::-webkit-scrollbar {
+    display: none;
+}
 
 /*
 Core Styles
 */
 
+body {
+	margin: 0;
+}
 #calculator-wrapper {
 	position: relative;
 	max-width: 580px;
@@ -376,10 +382,11 @@ Page Element Styles
 #calculator-wrapper .input, #calculator-wrapper .editable, #calculator-wrapper .button {
 	max-width: 256px;
 	width: 80%;
-	padding: 8px;
+    padding: 0px 8px;
+    line-height: 40px;
+    height: 40px;
 }
 #calculator-wrapper .input, #calculator-wrapper .editable {
-    padding: 8px;
    	min-width: 240px;
 }
 #calculator-wrapper .input {
@@ -387,7 +394,6 @@ Page Element Styles
 	text-align: left;
 }
 #calculator-wrapper .editable {
-	height: 22px;
 	min-width: 222px;
     width: 75%;
     max-width: 240px;
@@ -406,11 +412,9 @@ Page Element Styles
 	color: #D1D1D1;
 }
 #calculator-wrapper .button {
-	height: 22px;
 	max-width: 236px;
 	width: 70%;
     min-width: 220px;
-	padding: 4px 8px 8px;
 	border-radius: 4px;
 	border: 2px solid;
 	box-shadow: 1px 1px 1px #333333;
@@ -489,6 +493,10 @@ Page Specific Styles
 	width: 100%;
 	height: 100%;
 }
+#calculator-wrapper #page-3 .scroll-mask .scroll-container .inputs .input {
+	margin-top: 10px;
+	vertical-align:top;
+}
 #calculator-wrapper #page-3 .name-dob {
 	max-width: 400px;
 	width: 100%;
@@ -523,12 +531,13 @@ Page Specific Styles
 /* Page 6 (Results) */
 #calculator-wrapper #page-6 .output {
 	position: relative;
-	height: 24px;
+	height: 40px;
 	max-width: 384px;
 	width: 100%;
-	padding: 8px;
+	padding: 0px 8px;
 	border-radius: 4px;
 	text-align: left;
+	line-height: 40px;
 }
 #calculator-wrapper #page-6 .output .label {
 	position: absolute;
@@ -544,6 +553,10 @@ Page Specific Styles
 	text-align: left;
 }
 
+/*
+Media Queries
+*/
+
 @media only screen and (max-width: 480px) {
 
 	/* Page 3 (Member DOBs) */
@@ -554,7 +567,6 @@ Page Specific Styles
 	}
 	#calculator-wrapper #page-3 .scroll-mask .scroll-container {
 	    width: 100%;
-	    width: 295px;
 	    margin: 0 auto;
 	    max-height: 220px;
 	    overflow: hidden;
@@ -583,45 +595,46 @@ Page Specific Styles
 	}
 	#calculator-wrapper #page-6 .output {
 		position: relative;
-		height: 24px;
+		height: 40px;
 		max-width: 384px;
 		min-width: 256px;
 		width: 80%;
-		padding: 8px;
+		padding: 0px 8px;
 		text-align: left;
+		line-height: 40px;
 	}
 }
 @media only screen and (max-width: 414px) {
 	#calculator-wrapper {
-		height: 736px;
+		height: 702px;
 	}
 	#calculator-wrapper .pages {
-		height: 664px;
+		height: 624px;
 	}
 	#calculator-wrapper .pages .page {
-		height: 664px;
+		height: 624px;
 	}
 }
 @media only screen and (max-width: 375px) {
 	#calculator-wrapper {
-		height: 667px;
+		height: 627px;
 	}
 	#calculator-wrapper .pages {
-		height: 592px;
+		height: 552px;
 	}
 	#calculator-wrapper .pages .page {
-		height: 600px;
+		height: 552px;
 	}
 }
 @media only screen and (max-width: 320px) {
 	#calculator-wrapper {
-		height: 548px;
+		height: 568px;
 	}
 	#calculator-wrapper .pages {
-		height: 480px;
+		height: 498px;
 	}
 	#calculator-wrapper .pages .page {
-		height: 480px;
+		height: 498px;
 	}
 	#calculator-wrapper #page-1 .title {
 		line-height: 28px;
