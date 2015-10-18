@@ -1,17 +1,6 @@
 <?php
+// Require Composer / Slim Autoloader
 require 'vendor/autoload.php';
-
-// Generate Logs Directory
-if (!is_dir('logs')) {
-	mkdir('logs');
-}
-
-// API Exception Handler
-class apiException extends Exception {
-	function __construct ($msg, $errorCode = 0, Exception $e = null) {
-		parent::__construct($msg, $errorCode, $e);
-	}
-}
 
 // Instantiate SlimPHP Application
 $app = new \Slim\Slim(array(
