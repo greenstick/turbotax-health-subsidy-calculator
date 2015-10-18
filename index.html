@@ -33,11 +33,11 @@ Author: Benjamin Cordier
 							be eligible for a discount on your health insurance
 							premiums. Find out if you might qualify.
 						</div>
-						<div class="row start button orange-bg white navigation" data-to='2'>
+						<div class="row start button orange-bg white navigation" data-bind="click: function () { navigateTo(2) }">
 							Get Started
 						</div>
 						<div class="row sub-text">
-							<span class="underlined navigation" data-to='enterDisclosures'>Disclosures</span>
+							<span class="underlined navigation" data-bind="click: function () { navigateTo('enterDisclosures') }">Disclosures</span>
 						</div>
 					</div>
 				</div>
@@ -46,7 +46,7 @@ Author: Benjamin Cordier
 				<div class="page-aligner">
 					<div class="page-content">
 						<div class="nav">
-							<div class="back navigation" data-to="1">
+							<div class="back navigation" data-bind="click: function () { navigateTo(1) }">
 								<img src="img/back.svg" />
 							</div>
 						</div>
@@ -58,7 +58,7 @@ Author: Benjamin Cordier
 							your household?
 						</div>
 						<select class="row input houseMembers" data-bind="options: houseMemberValues, value: houseMembers, optionsCaption: 'Number of people'" required></select>
-						<div class="row next button skyblue-bg white navigation validate" data-to="3">
+						<div class="row next button skyblue-bg white navigation disabled" data-bind="enable: houseMembers, css: {disabled: houseMembers() === undefined}, click: function () { navigateTo(3) }">
 							Next
 						</div>
 						<div class="row sub-text">
@@ -75,10 +75,10 @@ Author: Benjamin Cordier
 				<div class="page-aligner">
 					<div class="page-content">
 						<div class="nav">
-							<div class="back navigation" data-to="2">
+							<div class="back navigation" data-bind="click: function () { navigateTo(2) }">
 								<img src="img/back.svg" />
 							</div>
-							<div class="restart navigation" data-to="1">
+							<div class="restart navigation" data-bind="click: function () { navigateTo(1) }">
 								<img src="img/restart.svg" />
 							</div>
 						</div>
@@ -102,7 +102,7 @@ Author: Benjamin Cordier
 								</div>
 							</div>
 						</div>
-						<div class="row next button skyblue-bg white navigation validate" data-to="4">
+						<div class="row next button skyblue-bg white navigation disabled" data-bind="enable: nameDobComplete, css: {disabled: nameDobComplete() === false}, click: function () { navigateTo(4) }">
 							Next
 						</div>
 					</div>
@@ -112,10 +112,10 @@ Author: Benjamin Cordier
 				<div class="page-aligner">
 					<div class="page-content">
 						<div class="nav">
-							<div class="back navigation" data-to="3">
+							<div class="back navigation" data-bind="click: function () { navigateTo(3) }">
 								<img src="img/back.svg" />
 							</div>
-							<div class="restart navigation" data-to="1">
+							<div class="restart navigation" data-bind="click: function () { navigateTo(1) }">
 								<img src="img/restart.svg" />
 							</div>
 						</div>
@@ -127,8 +127,8 @@ Author: Benjamin Cordier
 							your household income
 							to be in 2016?
 						</div>
-						<input class="row input skyblue number houseIncome" data-bind="commaNumber: houseIncome(), value: houseIncome, valueUpdate: 'keypress'" type="number" pattern="[0-9,.]*" placeholder="0.00" name="houseIncome" maxlength="10" required>
-						<div class="row next button skyblue-bg white navigation validate" data-to="5">
+						<div class="row input skyblue number houseIncome editable placeholder" data-bind="formatNumber: houseIncome, format: '$0,0.00', value: houseIncome" name="houseIncome" maxlength="10" contenteditable></div>
+						<div class="row next button skyblue-bg white navigation disabled" data-bind="enable: houseIncome, css: {disabled: houseIncome() === 0}, click: function () { navigateTo(5) }">
 							Next
 						</div>
 						<div class="row sub-text">
@@ -142,10 +142,10 @@ Author: Benjamin Cordier
 				<div class="page-aligner">
 					<div class="page-content">
 						<div class="nav">
-							<div class="back navigation" data-to="4">
+							<div class="back navigation" data-bind="click: function () { navigateTo(4) }">
 								<img src="img/back.svg" />
 							</div>
-							<div class="restart navigation" data-to="1">
+							<div class="restart navigation" data-bind="click: function () { navigateTo(1) }">
 								<img src="img/restart.svg" />
 							</div>
 						</div>
@@ -159,7 +159,7 @@ Author: Benjamin Cordier
 						<div class="row sub-text">
 							<span class="underlined">See if you qualify for an exemption.</span>
 						</div>
-						<div class="row submit button skyblue-bg white validate" data-to="6">
+						<div class="row submit button skyblue-bg white disabled" data-bind="enable: zipcode, css: {disabled: zipcode() === undefined}, click: function () { navigateTo(6); 	queryAPI(); }">
 							Submit
 						</div>
 					</div>
@@ -169,10 +169,10 @@ Author: Benjamin Cordier
 				<div class="page-aligner">
 					<div class="page-content">
 						<div class="nav">
-							<div class="back navigation" data-to="5">
+							<div class="back navigation" data-bind="click: function () { navigateTo(5) }">
 								<img src="img/back.svg" />
 							</div>
-							<div class="restart navigation" data-to="1">
+							<div class="restart navigation" data-bind="click: function () { navigateTo(1) }">
 								<img src="img/restart.svg" />
 							</div>
 						</div>
@@ -185,10 +185,10 @@ Author: Benjamin Cordier
 							applied to your health care costs:
 						</div>
 						<div class="row output skyblue-bg white annual">
-							<span class="label">*Annual Household Subsidy</span><span class="value" data-bind="monetaryNumber: annualSubsidy"></span>
+							<span class="label">*Annual Household Subsidy</span><span class="value" data-bind="formatNumber: annualSubsidy, format: '$0,0.00'"></span>
 						</div>
 						<div class="row output deepblue-bg white monthly">
-							<span class="label">*Monthly Household Subsidy</span><span class="value" data-bind="monetaryNumber: monthlySubsidy"></span>
+							<span class="label">*Monthly Household Subsidy</span><span class="value" data-bind="formatNumber: monthlySubsidy, format: '$0,0.00'"></span>
 						</div>
 						<div class="row sub-text">
 							*Smokers can be charged up to 50% more for their premiums. This is due
@@ -203,7 +203,7 @@ Author: Benjamin Cordier
 							<a href="https://www.ehealthinsurance.com" class="underlined" target="_blank">Powered by eHealth</a>
 						</div>
 						<div class="row sub-text">
-							<span class="underlined navigation" data-to="enterDisclosures">Disclosures</span>
+							<span class="underlined navigation" data-bind="click: function () { navigateTo('enterDisclosures') }">Disclosures</span>
 						</div>
 					</div>
 				</div>
@@ -212,7 +212,7 @@ Author: Benjamin Cordier
 				<div class="page-aligner">
 					<div class="page-content">
 						<div class="row nav">
-							<div class="back navigation" data-to="exitDisclosures">
+							<div class="back navigation" data-bind="click: function () { navigateTo('exitDisclosures') }">
 								<img src="img/back.svg" />
 							</div>
 						</div>
@@ -243,8 +243,9 @@ Author: Benjamin Cordier
 		</div>
 		<!-- Footer Logos -->
 		<div id="footer">
-			<div class="logo left"></div>
-			<div class="logo right"></div>
+			<div class="logo right">
+				<img src="img/turbotax-logo.svg" />
+			</div>
 		</div>
 	</div>
 <!-- JS -->

@@ -8,38 +8,25 @@ Author: Benjamin Cordier
 /*
 Knockout Custom Bindings
 */
-	
-/*
-Knockout Custom Bindings
-*/
-	
-// Comma Number Binding
-ko.bindingHandlers.commaNumber  	= {
-	init 	: function (element, valueAccessor) {
-		var value = numeral(ko.utils.unwrapObservable(valueAccessor())).format('0,0.00');
-		console.log(value);
-		$(element).text(value);
-		return value
-	},
-	update 	: function (element, valueAccessor) {
-		var value = numeral(ko.utils.unwrapObservable(valueAccessor())).format('0,0.00');
-		console.log(value);
-		$(element).text(value);
-		return value
-	}
-};
 
-// Monetary Number Binding
-ko.bindingHandlers.monetaryNumber  	= {
-	init 	: function (element, valueAccessor) {
-		var value = numeral(ko.utils.unwrapObservable(valueAccessor())).format('$0,0.00');
-		$(element).text(value);
-		return value
+// Format Number Binding -- Requires use of format binding that makes use of numeral format string
+ko.bindingHandlers.formatNumber  	= {
+	init 	: function (element, valueAccessor, allBindings) {
+		ko.utils.registerEventHandler(element, "blur", function() {
+			var value 		= valueAccessor(),
+				elementText = element.innerHTML,
+				format 		= allBindings.get('format');
+			if (ko.isWriteableObservable(value)) {
+				value(numeral().unformat(elementText));
+			}
+		});
 	},
-	update 	: function (element, valueAccessor) {
-		var value = numeral(ko.utils.unwrapObservable(valueAccessor())).format('$0,0.00');
-		$(element).text(value);
-		return value
+	update 	: function (element, valueAccessor, allBindings) {
+		var value 		= numeral().unformat(ko.unwrap(valueAccessor())),
+			format 		= allBindings.get('format'),
+			formatted 	= numeral(numeral().unformat(value)).format(format);
+		$(element).text(formatted);
+		return formatted;
 	}
 };
 
@@ -58,6 +45,7 @@ Calculator.prototype 	= {
 		this.getURL 			= config.getURL,
 		this.element 			= config.element,
 		this.inputElement 		= config.inputElement,
+		this.editElement 		= config.editElement,
 		this.nameDateElement 	= config.nameDateElement,
 		this.nameDateClass 		= config.nameDateClass,
 		this.dayElement 		= config.dayElement,
@@ -84,29 +72,40 @@ Calculator.prototype 	= {
 				self.nameDatesArray.push({
 					element : self.nameDateClass + 0,
 					index 	: 0,
-					name  	: '',
-					day 	: undefined,
-					month 	: undefined,
-					year 	: undefined
+					name  	: ko.observable(''),
+					day 	: ko.observable(undefined),
+					month 	: ko.observable(undefined),
+					year 	: ko.observable(undefined)
 				});
 			} else {
 				for (var i = 0; i < self.houseMembers(); i++) {
 					var nameDate = {
 						element : self.nameDateClass + i,
 						index 	: i,
-						name  	: '',
-						day 	: undefined,
-						month 	: undefined,
-						year 	: undefined
+						name  	: ko.observable(''),
+						day 	: ko.observable(undefined),
+						month 	: ko.observable(undefined),
+						year 	: ko.observable(undefined)
 					};
 					self.nameDatesArray.push(nameDate);
 				}
 			}
 			return self.nameDatesArray;
 		}),
-		this.houseIncome 		= ko.observable(undefined),
+		this.nameDobComplete 	= ko.computed(function () {
+			var complete 	= true,
+				arr 		= self.nameDatesArray();
+			for (var i = 0; i < arr.length; i++) {
+				if (arr[i].name() 	=== '') { complete = false };
+				if (arr[i].day() 	=== undefined) { complete = false };
+				if (arr[i].month() 	=== undefined) { complete = false };
+				if (arr[i].year() 	=== undefined) { complete = false };
+			}
+			return complete;
+		}),
+		this.houseIncome 		= ko.observable(0),
 		this.houseIncomeValue 	= ko.computed(function () {
-			return numeral().unformat(self.houseIncome());
+			return typeof self.houseIncome === 'string' ? numeral().unformat(self.houseIncome()) : 0;
 		}),
 		this.zipcode 			= ko.observable(undefined),
 		this.annualSubsidy 		= ko.observable(0),
@@ -117,56 +116,55 @@ Calculator.prototype 	= {
 		return this;
 	},
 	// Render Page Method
-	navigateTo				: function (page, validate) {
+	navigateTo				: function (page) {
 		var self = this;
-		if (validate === true) {
-			// Default Navigation
-			var l = $(self.page.indexTag + self.currentPage + " " + ".input:invalid").length;
-			// console.log($(self.page.indexTag + self.currentPage + " " + ".input:invalid"));
-			// console.log(l);
-			if (l === undefined) {
-				$(self.page.indexTag + self.currentPage).hide();
-				$(self.page.indexTag + page).show();
-				self.previousPage 	= self.currentPage;
-				self.currentPage 	= page;
-			} else if (l > 0) {
-				return
-			} else {
-				$(self.page.indexTag + self.currentPage).hide();
-				$(self.page.indexTag + page).show();
-				self.previousPage 	= self.currentPage;
-				self.currentPage 	= page;
-			}
+		if (page === "enterDisclosures") {
+			// Enter Disclosures Page
+			$(self.page.indexTag + self.currentPage).hide();
+			$(self.element + " #disclosures").show();
+		} else if (page === "exitDisclosures") {
+			// Exit Disclosures Page
+			$(self.element + " #disclosures").hide();
+			$(self.page.indexTag + self.currentPage).show();
+		} else if (page === 1) {
+			// Restart
+			$(self.page.indexTag + self.currentPage).hide();
+			$(self.page.indexTag + page).show();
+			self.previousPage 	= self.currentPage;
+			self.currentPage 	= page;
+			self.houseMembers(undefined);
+			self.nameDatesArray([]);
+			self.houseIncome(undefined);
+			self.zipcode(undefined);
+			self.annualSubsidy(0);
+			self.monthlySubsidy(0);
 		} else {
-			if (page === "enterDisclosures") {
-				// Enter Disclosures Page
-				$(self.page.indexTag + self.currentPage).hide();
-				$(self.element + " #disclosures").show();
-			} else if (page === "exitDisclosures") {
-				// Exit Disclosures Page
-				$(self.element + " #disclosures").hide();
-				$(self.page.indexTag + self.currentPage).show();
-			} else if (page === 1) {
-				// Restart
-				$(self.page.indexTag + self.currentPage).hide();
-				$(self.page.indexTag + page).show();
-				self.previousPage 	= self.currentPage;
-				self.currentPage 	= page;
-				self.houseMembers(undefined);
-				self.nameDatesArray([]);
-				self.houseIncome(undefined);
-				self.zipcode(undefined)
-				self.annualSubsidy(0);
-				self.monthlySubsidy(0);
-			} else {
-				$(self.page.indexTag + self.currentPage).hide();
-				$(self.page.indexTag + page).show();
-				self.previousPage 	= self.currentPage;
-				self.currentPage 	= page;
-			}
+			$(self.page.indexTag + self.currentPage).hide();
+			$(self.page.indexTag + page).show();
+			self.previousPage 	= self.currentPage;
+			self.currentPage 	= page;
 		}
 		return this;
 	},
+	// Clear Placeholder of Content Editable div
+	clearPlaceholder 		: function (element, placeholder) {
+		var self = this;
+		if ($(element).text() === placeholder) {
+			$(element).removeClass('placeholder');
+			$(element).text('');
+		}
+		return this;
+	},
+	// Set Placeholder of Content Editable div
+	setPlaceholder 			: function (element, placeholder) {
+		var self = this;
+		if ($(element).text() === placeholder || $(element).text().trim() === "") {
+			$(element).addClass('placeholder');
+			$(element).text(placeholder);
+		}
+		return this;
+	},
+
 	// Query API
 	queryAPI 				: function () {
 		var self = this,
@@ -177,24 +175,24 @@ Calculator.prototype 	= {
 		obj["zip_code"] 		= self.zipcode();
 		if (self.houseMembers() < 2) {
 			var primary = self.nameDatesArray()[0];
-			obj["primary_dob"] 		= primary.month + "-" + primary.day + "-" + primary.year;
+			obj["primary_dob"] 		= primary.month() + "-" + primary.day() + "-" + primary.year();
 		} else if (self.houseMembers() < 3) {
 			var primary = self.nameDatesArray()[0],
 				spouse 	= self.nameDatesArray()[1];
-			obj["primary_dob"] 		= primary.month + "-" + primary.day + "-" + primary.year;
-			obj["spouse_dob"] 		= spouse.month + "-" + spouse.day + "-" + spouse.year;
+			obj["primary_dob"] 		= primary.month() + "-" + primary.day() + "-" + primary.year();
+			obj["spouse_dob"] 		= spouse.month() + "-" + spouse.day() + "-" + spouse.year();
 		} else {
 			var primary = self.nameDatesArray()[0],
 				spouse 	= self.nameDatesArray()[1],
 				childs 	= '';
-			obj["primary_dob"] 		= primary.month + "-" + primary.day + "-" + primary.year;
-			obj["spouse_dob"] 		= spouse.month + "-" + spouse.day + "-" + spouse.year;
+			obj["primary_dob"] 		= primary.month() + "-" + primary.day() + "-" + primary.year();
+			obj["spouse_dob"] 		= spouse.month() + "-" + spouse.day() + "-" + spouse.year();
 			for (var i = 2; i < self.nameDatesArray().length; i++) {
 				var child = self.nameDatesArray()[i];
 				if (i === self.nameDatesArray().length - 1) {
-					childs += child.month + "-" + child.day + "-" + child.year;
+					childs += child.month() + "-" + child.day() + "-" + child.year();
 				} else {
-					childs += child.month + "-" + child.day + "-" + child.year + ",";
+					childs += child.month() + "-" + child.day() + "-" + child.year() + ",";
 				}
 			}
 			obj["children_dob"] 	= childs;
@@ -234,6 +232,7 @@ Instantiate Calculator
 var config 		= {
 	element 				: '#calculator-wrapper',
 	inputElement 			: '#calculator-wrapper .input',
+	editElement 			: '#calculator-wrapper .editable',
 	navigation 				: '#calculator-wrapper .navigation',
 	navigationValidate 		: '#calculator-wrapper .navigation.validate',
 	nameDateElement 		: '#calculator-wrapper .name-dob',
@@ -327,21 +326,12 @@ $(calculator.yearElement).keypress(function() {
     }
 });
 
-// Static Navigation Binding
-$(calculator.navigation).on("click touchend pointerup", function (e) {
-	var page = $(this).data("to");
-	calculator.navigateTo(page, false);
+// Clear Content Editable Placeholder on Focus
+$(calculator.editElement).on("focus", function (e) {
+	calculator.clearPlaceholder(e.currentTarget, '$0.00');
 });
 
-// Validate Navigation Binding
-$(calculator.navigationValidate).on("click touchend pointerup", function (e) {
-	var page = $(this).data("to");
-	calculator.navigateTo(page, true);
-});
-
-// Submit Binding
-$(calculator.submitElement).on("click touchend pointerup", function (e) {
-	var page = $(this).data("to");
-	calculator.navigateTo(page, true);
-	calculator.queryAPI();
+// Set Content Editable Placeholder on Blur
+$(calculator.editElement).on("blur", function (e) {
+	calculator.setPlaceholder(e.currentTarget, '$0.00');
 });

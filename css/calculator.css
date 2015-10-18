@@ -37,7 +37,6 @@ Normalize & Native UI Mods
 	height: 28px;
 	padding: 6px 8px 6px 5px;
 	font-size: 16px;
-	font-weight: 200;
 	border: 1px solid #34b8f4;
 	border-radius: 3px;
 	-webkit-appearance: none;
@@ -52,9 +51,13 @@ Normalize & Native UI Mods
     #calculator-wrapper select {
         background:none;
         padding: 5px;
+        font-weight: 200;
+		font-size: 16px;
     }
 }
 #calculator-wrapper input {
+	font-weight: 200;
+	font-size: 14px;
 	background-color: transparent;
 }
 /* Remove Number Spinner*/
@@ -65,25 +68,28 @@ Normalize & Native UI Mods
 #calculator-wrapper input[type=number] {
     -moz-appearance:textfield;
 }
-::-webkit-input-placeholder {
-	font-weight: 400;
-	font-size: 14px;
+#calculator-wrapper ::-webkit-input-placeholder {
+	font-weight: 200;
+	font-size: 16px
 	font-style: italic;
 }
-::-moz-placeholder { 
-	font-weight: 400;
-	font-size: 14px;
+#calculator-wrapper ::-moz-placeholder { 
+	font-weight: 200;
+	font-size: 16px;
 	font-style: italic;
 } /* firefox 19+ */
-:-ms-input-placeholder {
-	font-weight: 400;
-	font-size: 14px;
+#calculator-wrapper :-ms-input-placeholder {
+	font-weight: 200;
+	font-size: 16px;
 	font-style: italic;
 } /* ie */
-input:-moz-placeholder { 
-	font-weight: 400;
-	font-size: 14px;
+#calculator-wrapper input:-moz-placeholder { 
+	font-weight: 200;
+	font-size: 16px;
 	font-style: italic;
+}
+#calculator-wrapper input:focus, #calculator-wrapper select:focus, #calculator-wrapper textarea:focus, #calculator-wrapper button:focus, #calculator-wrapper .input:focus {
+    outline: none;
 }
 
 /*
@@ -94,7 +100,8 @@ Core Styles
 	position: relative;
 	max-width: 580px;
 	min-width: 320px;
-	height: 800px;
+	width: 100%;
+	height: 680px;
 	margin: 0 auto;
 	padding: 0;
 	box-sizing: border-box;
@@ -105,18 +112,18 @@ Core Styles
 #calculator-wrapper .pages {
 	position: relative;
 	max-width: 548px;
-	height: 732px;
+	height: 612px;
 	padding: 16px 16px 42px 16px;
 	background-color: transparent;
 }
 #calculator-wrapper .row {
 	margin: 10px auto;
-	max-width: 320px;
+	max-width: 400px;
 }
 #calculator-wrapper a {
 	color: #333333;
 	text-decoration: none;
-	padding: 4px;
+	/*padding: 4px;*/
 	cursor: pointer;
 }
 #calculator-wrapper .underlined {
@@ -228,7 +235,6 @@ Brand Styles
 	font-weight: 200;
 	font-size: 28px;
 	line-height: 32px;
-	margin-bottom: 0px;
 }
 #calculator-wrapper .lead {
 	font-weight: 200;
@@ -250,6 +256,10 @@ Brand Styles
 	font-weight: 400;
 	font-size: 12px;
 }
+#calculator-wrapper .input, #calculator-wrapper .editable {
+	font-size: 16px;
+	font-weight: 200;
+}
 
 /*
 Navigation Styles
@@ -257,6 +267,7 @@ Navigation Styles
 
 #calculator-wrapper .navigation, #calculator-wrapper .submit {
 	cursor: pointer;
+	z-index: 10;
 }
 #calculator-wrapper .back.navigation {
 	position: absolute;
@@ -267,6 +278,13 @@ Navigation Styles
 	position: absolute;
 	top: 20px;
 	left: 60px;
+}
+#calculator-wrapper .next.disabled, #calculator-wrapper .submit.disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .65;
 }
 
 /*
@@ -280,17 +298,32 @@ Page Setup
 #calculator-wrapper .page {
 	position: relative;
 	max-width: 548px;
-	height: 732px;
+	height: 612px;
 	display: none;
 	background-color: #ffffff;
 }
 #calculator-wrapper .page .page-aligner {
 	width: 100%;
-	height: 85%;
-	display: flex;
-    flex-direction: row;
-    align-items: center; 
-    justify-content: center;
+	height: 100%;
+	display: table;
+}
+#calculator-wrapper .page .page-aligner .page-content {
+    width: 100%;
+    height: auto;
+    display: table-cell;
+    vertical-align: middle;
+}
+#calculator-wrapper .logo.right {
+	position: absolute;
+    text-align: right;
+    bottom: 0px;
+    right: 0px;
+    width: auto;
+    height: 52px;
+    margin-right: 10px;
+}
+#calculator-wrapper .logo img {
+	height: 48px
 }
 
 /*
@@ -298,40 +331,92 @@ Page Element Styles
 */
 
 #calculator-wrapper .icon {
-
+	height: 142px;
 }
 #calculator-wrapper .page .title {
 	position: relative;
 	letter-spacing: 2px;
-	top: -24px;
 }
 #calculator-wrapper .page .lead {
     font-size: 24px;
     position: relative;
     max-width: 268px;
-    top: -8px;
+}
+#calculator-wrapper .input, #calculator-wrapper .editable, #calculator-wrapper .button {
+	max-width: 256px;
+	width: 80%;
+	padding: 8px;
+}
+#calculator-wrapper .input, #calculator-wrapper .editable {
+    padding: 8px;
+   	min-width: 240px;
 }
 #calculator-wrapper .input {
-	width: 256px;
 	height: 40px;
-	padding: 8px;
-	font-size: 16px;
-	font-weight: 200;
 }
-#calculator-wrapper .input.editable {
-	overflow: hidden;
+#calculator-wrapper .editable {
+	height: 22px;
+	min-width: 222px;
+    width: 75%;
+    max-width: 240px;
+	border: 1px solid #D1D1D1;
+    border-radius: 4px;
+    overflow: hidden;
 	word-wrap: initial;
 	white-space: nowrap;
 }
+#calculator-wrapper .editable:focus {
+	box-shadow: none;
+	border-color: #34b8f4;
+}
+#calculator-wrapper .editable.placeholder {
+	font-style: italic;
+	color: #D1D1D1;
+}
 #calculator-wrapper .button {
-	width: 256px;
-	height: 30px;
-	font-size: 18px;
-	font-weight: 200;
-	padding: 7px 8px 5px;
-	border-radius: 2px;
-	border: none;
+	height: 22px;
+	max-width: 236px;
+	width: 70%;
+    min-width: 220px;
+	padding: 4px 8px 8px;
+	border-radius: 4px;
+	border: 2px solid;
 	box-shadow: 1px 1px 1px #333333;
+	transition: all .3s;
+    -webkit-transition: all .3s;
+}
+#calculator-wrapper .sub-text, #calculator-wrapper .body-text, #calculator-wrapper .lead, #calculator-wrapper .title {
+	max-width: 80%;
+}
+/* Button Border Styles */
+#calculator-wrapper .button.orange-bg {
+	border-color: #ff8000;
+}
+#calculator-wrapper .button.green-bg {
+	border-color: #5ac54c;
+}
+#calculator-wrapper .button.skyblue-bg {
+	border-color: #34b8f4;
+}
+#calculator-wrapper .button.deepblue-bg {
+	border-color: #0082c3;
+}
+/* Button Hover Styles */
+#calculator-wrapper .button.orange-bg:hover {
+	background-color: #fff;
+	color: #ff8000;
+}
+#calculator-wrapper .button.green-bg:hover {
+	background-color: #fff;
+	color: #5ac54c;
+}
+#calculator-wrapper .button.skyblue-bg:hover {
+	background-color: #fff;
+	color: #34b8f4;
+}
+#calculator-wrapper .button.deepblue-bg:hover {
+	background-color: #fff;
+	color: #0082c3;
 }
 
 /*
@@ -339,9 +424,6 @@ Page Specific Styles
 */
 
 /* Page 1 (Intro) */
-#calculator-wrapper #page-1 .page-aligner {
-	height: 85%;
-}
 #calculator-wrapper #page-1 .title {
 	max-width: 260px;
 }
@@ -353,17 +435,8 @@ Page Specific Styles
 }
 
 /* Page 2 (Members of Household) */
-#calculator-wrapper #page-2 .page-aligner {
-	height: 70%;
-}
 
 /* Page 3 (Member DOBs) */
-#calculator-wrapper #page-3 .row {
-	max-width: 400px;
-}
-#calculator-wrapper #page-3 .page-aligner {
-	height: 70%;
-}
 #calculator-wrapper #page-3 .scroll-mask {
 	width: 400px;
 	max-width: 400px;
@@ -379,14 +452,17 @@ Page Specific Styles
 }
 #calculator-wrapper #page-3 .scroll-mask .scroll-container .inputs {
 	max-width: 400px;
+	min-width: 256px;
 	width: 100%;
 	height: 100%;
 }
 #calculator-wrapper #page-3 .name-dob {
 	max-width: 400px;
+	width: 100%;
 }
 #calculator-wrapper #page-3 .name-dob .name, #calculator-wrapper #page-3 .input {
 	display: inline-block;
+	min-width: 0;
 }
 #calculator-wrapper #page-3 .name-dob .name {
 	width: auto;
@@ -408,28 +484,17 @@ Page Specific Styles
 }
 
 /* Page 4 (Expected Income) */
-#calculator-wrapper #page-4 .page-aligner {
-	height: 70%;
-}
 
 /* Page 5 (Location / Zip code) */
-#calculator-wrapper #page-5 .page-aligner {
-	height: 70%;
-}
 
 /* Page 6 (Results) */
-#calculator-wrapper #page-6 .row {
-	max-width: 400px;
-}
-#calculator-wrapper #page-6 .page-aligner {
-	height: 70%;
-}
 #calculator-wrapper #page-6 .output {
 	position: relative;
 	height: 24px;
 	max-width: 384px;
 	width: 100%;
 	padding: 8px;
+	border-radius: 4px;
 	text-align: left;
 }
 #calculator-wrapper #page-6 .output .label {
@@ -442,11 +507,118 @@ Page Specific Styles
 }
 
 /* Page 7 (Disclosures) */
-#calculator-wrapper #disclosures .page-aligner {
-	height: 70%;
-}
 #calculator-wrapper #disclosures .body-text {
-	font-size: 14px;
-	max-width: 364px;
 	text-align: left;
+}
+
+@media only screen and (max-width: 480px) {
+
+	/* Page 3 (Member DOBs) */
+	#calculator-wrapper #page-3 .scroll-mask {
+	    width: 280px;
+	    max-width: 280px;
+	    overflow: hidden;
+	}
+	#calculator-wrapper #page-3 .scroll-mask .scroll-container {
+	    width: 100%;
+	    width: 295px;
+	    margin: 0 auto;
+	    max-height: 220px;
+	    overflow: hidden;
+	    overflow-y: scroll;
+	}
+	#calculator-wrapper #page-3 .input {
+		width: 256px;
+	}
+	#calculator-wrapper #page-3 .name-dob .dob {
+	    display: inline-block;
+	    position: relative;
+	    width: 256px;
+	   	max-width: 256px;
+	    margin-bottom: 20px;
+	}
+	#calculator-wrapper #page-3 .name-dob .dob .day, #calculator-wrapper #page-3 .name-dob .dob .month {
+	    width: 82px;
+	}
+	#calculator-wrapper #page-3 .name-dob .dob .year {
+	    width: 82px;
+	}
+	#calculator-wrapper #page-3 .name-dob .name {
+		width: 256px;
+   		max-width: 256px;
+		margin-bottom: 10px;
+	}
+	#calculator-wrapper #page-6 .output {
+		position: relative;
+		height: 24px;
+		max-width: 384px;
+		min-width: 256px;
+		width: 80%;
+		padding: 8px;
+		text-align: left;
+	}
+}
+@media only screen and (max-width: 414px) {
+	#calculator-wrapper {
+		height: 736px;
+	}
+	#calculator-wrapper .pages {
+		height: 664px;
+	}
+	#calculator-wrapper .pages .page {
+		height: 664px;
+	}
+}
+@media only screen and (max-width: 375px) {
+	#calculator-wrapper {
+		height: 667px;
+	}
+	#calculator-wrapper .pages {
+		height: 592px;
+	}
+	#calculator-wrapper .pages .page {
+		height: 600px;
+	}
+}
+@media only screen and (max-width: 320px) {
+	#calculator-wrapper {
+		height: 548px;
+	}
+	#calculator-wrapper .pages {
+		height: 480px;
+	}
+	#calculator-wrapper .pages .page {
+		height: 480px;
+	}
+	#calculator-wrapper #page-6 .lead {
+		margin-top: 56px;
+	}
+	#calculator-wrapper .title {
+		font-weight: 200;
+		font-size: 24px;
+	}
+	#calculator-wrapper .lead {
+		font-weight: 200;
+		font-size: 18px;
+	}
+	#calculator-wrapper .button {
+		font-weight: 200;
+		font-size: 18px;
+	}
+	#calculator-wrapper .cta {
+		font-weight: 400;
+		font-size: 18px;
+	}
+	#calculator-wrapper .body-text {
+		font-weight: 400;
+		font-size: 12px;
+	}
+	#calculator-wrapper .sub-text {
+		font-weight: 400;
+		font-size: 10px;
+	}
+	#calculator-wrapper .input, #calculator-wrapper .editable {
+		font-size: 16px;
+		font-weight: 200;
+	}
 }
