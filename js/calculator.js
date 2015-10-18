@@ -6,31 +6,6 @@ Author: Benjamin Cordier
 */
 
 /*
-Knockout Custom Bindings
-*/
-
-// Format Number Binding -- Requires use of format binding that makes use of numeral format string
-ko.bindingHandlers.formatNumber  	= {
-	init 	: function (element, valueAccessor, allBindings) {
-		ko.utils.registerEventHandler(element, "blur", function() {
-			var value 		= valueAccessor(),
-				elementText = element.innerHTML,
-				format 		= allBindings.get('format');
-			if (ko.isWriteableObservable(value)) {
-				value(numeral().unformat(elementText));
-			}
-		});
-	},
-	update 	: function (element, valueAccessor, allBindings) {
-		var value 		= numeral().unformat(ko.unwrap(valueAccessor())),
-			format 		= allBindings.get('format'),
-			formatted 	= numeral(numeral().unformat(value)).format(format);
-		$(element).text(formatted);
-		return formatted;
-	}
-};
-
-/*
 Calculator Prototype
 */
 
@@ -257,6 +232,31 @@ var config 		= {
 };
 
 var calculator 	= new Calculator(config);
+
+/*
+Knockout Custom Bindings
+*/
+
+// Format Number Binding -- Requires use of format binding that makes use of numeral format string
+ko.bindingHandlers.formatNumber  	= {
+	init 	: function (element, valueAccessor, allBindings) {
+		ko.utils.registerEventHandler(element, "blur", function() {
+			var value 		= valueAccessor(),
+				elementText = element.innerHTML,
+				format 		= allBindings.get('format');
+			if (ko.isWriteableObservable(value)) {
+				value(numeral().unformat(elementText));
+			}
+		});
+	},
+	update 	: function (element, valueAccessor, allBindings) {
+		var value 		= numeral().unformat(ko.unwrap(valueAccessor())),
+			format 		= allBindings.get('format'),
+			formatted 	= numeral(numeral().unformat(value)).format(format);
+		$(element).text(formatted);
+		return formatted;
+	}
+};
 
 /*
 Apply Bindings
