@@ -57,7 +57,7 @@ Author: Benjamin Cordier
 							your household?
 						</div>
 						<select class="row input houseMembers" data-bind="options: houseMemberValues, value: houseMembers, optionsCaption: 'Number of people'" required></select>
-						<div class="row next button navyblue-bg white navigation disabled" data-bind="enable: houseMembers, css: {disabled: houseMembers() === undefined}, click: function () { navigateTo(3) }">
+						<div class="row next button skyblue-bg white navigation disabled" data-bind="enable: houseMembers, css: {disabled: houseMembers() === undefined}, click: function () { navigateTo(3) }">
 							Next
 						</div>
 						<div class="row sub-text">
@@ -101,7 +101,7 @@ Author: Benjamin Cordier
 								</div>
 							</div>
 						</div>
-						<div class="row next button navyblue-bg white navigation disabled" data-bind="enable: nameDobComplete, css: {disabled: nameDobComplete() === false}, click: function () { navigateTo(4) }">
+						<div class="row next button skyblue-bg white navigation disabled" data-bind="enable: nameDobComplete, css: {disabled: nameDobComplete() === false}, click: function () { navigateTo(4) }">
 							Next
 						</div>
 					</div>
@@ -127,7 +127,7 @@ Author: Benjamin Cordier
 							to be in 2016?
 						</div>
 						<div class="row input skyblue number houseIncome editable placeholder" data-bind="formatNumber: houseIncome, format: '$0,0.00', value: houseIncome" name="houseIncome" maxlength="10" contenteditable></div>
-						<div class="row next button navyblue-bg white navigation disabled" data-bind="enable: houseIncome, css: {disabled: houseIncome() === 0}, click: function () { navigateTo(5) }">
+						<div class="row next button skyblue-bg white navigation disabled" data-bind="enable: houseIncome, css: {disabled: houseIncome() === 0}, click: function () { navigateTo(5) }">
 							Next
 						</div>
 						<div class="row sub-text">
@@ -155,7 +155,7 @@ Author: Benjamin Cordier
 							Where do you live?
 						</div>
 						<input class="row input skyblue zipcode" data-bind="value: zipcode" type="text" placeholder="Zip code" name="zipcode" pattern="[0-9]*" maxlength="5" required>
-						<div class="row submit button navyblue-bg white disabled" data-bind="enable: zipcode, css: {disabled: zipcode() === undefined}, click: function () { navigateTo(6); 	queryAPI(); }">
+						<div class="row submit button skyblue-bg white disabled" data-bind="enable: zipcode, css: {disabled: zipcode() === undefined}, click: function () { navigateTo(6); 	queryAPI(); }">
 							Submit
 						</div>
 					</div>
@@ -180,7 +180,7 @@ Author: Benjamin Cordier
 							qualify for the following subsidy, which can be
 							applied to your health care costs:
 						</div>
-						<div class="row output navyblue-bg white annual">
+						<div class="row output skyblue-bg white annual">
 							<span class="label">*Annual Household Subsidy</span><span class="value" data-bind="formatNumber: annualSubsidy, format: '$0,0.00'"></span>
 						</div>
 						<div class="row output deepblue-bg white monthly">
@@ -240,7 +240,7 @@ Author: Benjamin Cordier
 		<!-- Footer Logos -->
 		<div id="footer">
 			<div class="logo right">
-				<img src="img/turbotax-logo.svg" />
+				<img src="img/intuit-logo.svg" />
 			</div>
 		</div>
 	</div>

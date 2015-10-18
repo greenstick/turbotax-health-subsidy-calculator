@@ -286,6 +286,35 @@ Navigation Styles
     box-shadow: none;
     opacity: .65;
 }
+/* Navigation Highlighting */
+#calculator-wrapper .back svg rect,
+#calculator-wrapper .restart svg rect {
+	fill: #fff;
+	transition: all .3s;
+	-webkit-transition: all .3s;
+}
+#calculator-wrapper .back svg:hover rect,
+#calculator-wrapper .restart svg:hover rect {
+	fill: #34b8f4;
+}
+#calculator-wrapper .back svg polygon,
+#calculator-wrapper .back svg polyline,
+#calculator-wrapper .back svg path,
+#calculator-wrapper .restart svg polygon,
+#calculator-wrapper .restart svg polyline,
+#calculator-wrapper .restart svg path {
+	stroke: #34b8f4;
+	transition: all .3s;
+	-webkit-transition: all .3s;
+}
+#calculator-wrapper .back svg:hover polygon,
+#calculator-wrapper .back svg:hover polyline,
+#calculator-wrapper .back svg:hover path,
+#calculator-wrapper .restart svg:hover polygon,
+#calculator-wrapper .restart svg:hover polyline,
+#calculator-wrapper .restart svg:hover path {
+	stroke: #fff;
+}
 
 /*
 Page Setup
