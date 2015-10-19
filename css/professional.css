@@ -31,7 +31,7 @@ Normalize & Native UI Mods
 	display: block;
 	color: #34b8f4;
 	background-color: #ffffff;
-  	font: inherit;
+  	font-family: Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	margin: 0;
 	width: 256px;
 	height: 28px;
@@ -421,7 +421,8 @@ Page Element Styles
     -webkit-transition: all .3s;
 }
 #calculator-wrapper .sub-text, #calculator-wrapper .body-text, #calculator-wrapper .lead, #calculator-wrapper .title {
-	max-width: 80%;
+	max-width: 400px;
+	width: 80%;
 }
 /* Button Border Styles */
 #calculator-wrapper .button.orange-bg {
