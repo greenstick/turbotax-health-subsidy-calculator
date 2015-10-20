@@ -136,13 +136,13 @@ body {
 #calculator-wrapper .underlined {
 	text-decoration: underline;
 	color: #666666;
-	padding: 4px;
+	padding: 4px 0px;
 	cursor: poiner;
 }
 #calculator-wrapper .underlined:hover, #calculator-wrapper a:active {
 	color: #0082c3;
-	background-color: #f1f1f1;
-	border-radius: 2px;
+	/*background-color: #f1f1f1;*/
+	/*border-radius: 2px;*/
 }
 #calculator-wrapper .text-left {
 	text-align: left;
