@@ -238,6 +238,9 @@ Brand Styles
 
 /* Typography Styles */
 
+#calculator-wrapper .bold {
+	font-weight: 600;
+}
 #calculator-wrapper .title {
 	font-weight: 200;
 	font-size: 28px;

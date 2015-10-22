@@ -156,7 +156,7 @@ Author: Benjamin Cordier
 							your household income
 							to be in 2016?
 						</div>
-						<div class="row input skyblue number houseIncome editable placeholder" data-bind="formatNumber: houseIncome, format: '$0,0.00', value: houseIncome" type="number" name="houseIncome" maxlength="10" contenteditable></div>
+						<div class="row input skyblue number houseIncome editable placeholder" data-bind="formatInputNumber: houseIncome, format: '$0,0.00', value: houseIncome" type="number" name="houseIncome" maxlength="10" contenteditable><p></p></div>
 						<div class="row next button skyblue-bg white navigation disabled" data-bind="enable: houseIncome, css: {disabled: houseIncome() === 0}, click: function () { navigateTo(5) }">
 							Next
 						</div>
@@ -231,27 +231,37 @@ Author: Benjamin Cordier
 						<div class="row lead darkgrey">
 							RESULTS
 						</div>
-						<div class="row body-text grey">
-							Based on the information you provided, you might
-							qualify for the following subsidy, which can be
-							applied to your health care costs:
-						</div>
-						<div class="row output skyblue-bg white annual">
-							<span class="label">*Annual Household Subsidy</span><span class="value" data-bind="formatNumber: annualSubsidy, format: '$0,0.00'"></span>
-						</div>
-						<div class="row output deepblue-bg white monthly">
-							<span class="label">*Monthly Household Subsidy</span><span class="value" data-bind="formatNumber: monthlySubsidy, format: '$0,0.00'"></span>
-						</div>
-						<div class="row sub-text grey">
-							*Smokers can be charged up to 50% more for their premiums. This is due
-							to a "tobacco surcharge." Learn more about health insurance plans at <a href="https://www.healthcare.gov" class="underlined" target="_blank">HealthCare.gov</a> or <a href="https://www.ehealthinsurance.com" class="underlined" target="_blank">eHealth.com</a>.
-						</div>
-						<div class="row sub-text grey">
-							<a href="https://www.ehealthinsurance.com" class="underlined" target="_blank">Powered by eHealth</a>
-						</div>
-						<div class="row sub-text grey">
-							<span class="underlined navigation" data-bind="click: function () { navigateTo('enterDisclosures') }">Disclaimer</span>
-						</div>
+						<!-- ko if: apiError() == false -->
+							<div class="row body-text grey">
+								Based on the information you provided, you might
+								qualify for the following subsidy, which can be
+								applied to your health care costs:
+							</div>
+								<div class="row output skyblue-bg white annual">
+									<span class="label">*Annual Household Subsidy</span><span class="value" data-bind="formatNumber: annualSubsidy, format: '$0,0.00'"></span>
+								</div>
+								<div class="row output deepblue-bg white monthly">
+									<span class="label">*Monthly Household Subsidy</span><span class="value" data-bind="formatNumber: monthlySubsidy, format: '$0,0.00'"></span>
+								</div>
+							<div class="row sub-text grey">
+								*Smokers can be charged up to 50% more for their premiums. This is due
+								to a "tobacco surcharge." Learn more about health insurance plans at <a href="https://www.healthcare.gov" class="underlined" target="_blank">HealthCare.gov</a> or <a href="https://www.ehealthinsurance.com" class="underlined" target="_blank">eHealth.com</a>.
+							</div>
+							<div class="row sub-text grey">
+								<a href="https://www.ehealthinsurance.com" class="underlined" target="_blank">Powered by eHealth</a>
+							</div>
+							<div class="row sub-text grey">
+								<span class="underlined navigation" data-bind="click: function () { navigateTo('enterDisclosures') }">Disclaimer</span>
+							</div>
+						<!-- /ko -->
+						<!-- ko if: apiError() == true -->
+							<div class="row" data-bind="foreach: apiErrorsArray()">
+								<div>
+									<span class="bold" data-bind="text: type"></span> : <span data-bind="text: message"></span>
+								</div>
+								<br />
+							</div>
+						<!-- /ko -->
 					</div>
 				</div>
 			</div>

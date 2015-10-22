@@ -83,8 +83,12 @@ Calculator.prototype 	= {
 			return typeof self.houseIncome === 'string' ? numeral().unformat(self.houseIncome()) : 0;
 		}),
 		this.zipcode 			= ko.observable(undefined),
-		this.annualSubsidy 		= ko.observable(0),
-		this.monthlySubsidy 	= ko.observable(0),
+		this.annualSubsidy 		= ko.observable(),
+		this.monthlySubsidy 	= ko.observable(),
+		this.apiData 			= ko.observable(),
+		this.apiError 			= ko.observable(false),
+		this.apiErrorsArray 	= ko.observableArray([]),
+		this.apiErrorData 		= ko.observable(),
 		this.disclosureActive 	= false,
 		this.previousPage,
 		this.result;
@@ -111,8 +115,8 @@ Calculator.prototype 	= {
 			self.nameDatesArray([]);
 			self.houseIncome(undefined);
 			self.zipcode(undefined);
-			self.annualSubsidy(0);
-			self.monthlySubsidy(0);
+			self.annualSubsidy(undefined);
+			self.monthlySubsidy(undefined);
 		} else {
 			$(self.page.indexTag + self.currentPage).hide();
 			$(self.page.indexTag + page).show();
@@ -144,6 +148,13 @@ Calculator.prototype 	= {
 	queryAPI 				: function () {
 		var self = this,
 			obj  = {};
+		// Reset Observables (Incase they already exist)
+		self.apiError(false);
+		self.apiErrorsArray([]);
+		self.apiErrorData(undefined);
+		self.annualSubsidy(undefined);
+		self.monthlySubsidy(undefined);
+		self.apiData(undefined);
 		// Setup Query JSON
 		obj["tax_family_size"] 	= self.houseMembers();
 		obj["income"] 			= self.houseIncome();
@@ -181,20 +192,50 @@ Calculator.prototype 	= {
 		}).done(function (data) {
 			console.log("XHR Status: Response Received.")
 			try {
+				self.apiData(data);
+				// The elif statements below shouldn't be necessary, but for some reason 0 values in the API aren't directly updating the KO bindings.
 				if (data.response.estimates[0].subsidy.annual) {
 					self.annualSubsidy(data.response.estimates[0].subsidy.annual);
+				} else if (data.response.estimates[0].subsidy.annual === 0) {
+					self.annualSubsidy(0);
 				}
 				if (data.response.estimates[0].subsidy.monthly) {
 					self.monthlySubsidy(data.response.estimates[0].subsidy.monthly);
+				} else if (data.response.estimates[0].subsidy.monthly === 0) {
+					self.monthlySubsidy(0);
 				}
 			} catch (error) {
-				for (var i = 0; i < data.error.errors.length; i++) {
-					console.log("Error:", data.error.errors[i].message, "-", data.error.errors[i].actual);
-				}
+				var type 	= "Query Error", 
+					message = "There was a problem with the query to the API, our apologies! Please try again later or click the back button and verify your input.";
+				self.apiError(true);
+				self.apiErrorData(data.error);
+				self.apiErrorsArray.push({
+					type 	: type,
+					message : message
+				});
+				console.log(error);
 			}
 		}).fail(function (error) {
-			console.log("Error: There was a problem connecting to the API, our apologies! Please try again later.")
+			var type 	= "API Error",
+				message = "There was a problem connecting to the API, our apologies! Please try again later.";
+			self.apiError(true);
+			self.apiErrorsArray.push({
+				type 	: type,
+				message : message
+			});
+			console.log(error)
 		}).always(function () {
+			if (self.apiErrorData() !== undefined) {
+				for (var i = 0; i < self.apiErrorData().errors.length; i++) {
+					var type 	= "Value Error",
+						message = self.apiErrorData().errors[i].actual + " - " + self.apiErrorData().errors[i].message;
+					self.apiErrorsArray.push({
+						type 	: type,
+						message : message
+					});
+				}
+				console.log(self.apiErrorData());
+			}
 			console.log("XHR Status: Request Complete.")
 		});
 	}
@@ -237,10 +278,10 @@ var calculator 	= new Calculator(config);
 Knockout Custom Bindings
 */
 
-// Format Number Binding -- Requires use of format binding that makes use of numeral format string
-ko.bindingHandlers.formatNumber  	= {
+// Format Input Number Binding -- Requires use of format binding that makes use of numeral format string
+ko.bindingHandlers.formatInputNumber  	= {
 	init 	: function (element, valueAccessor, allBindings) {
-		ko.utils.registerEventHandler(element, "blur", function() {
+		ko.utils.registerEventHandler(element, "blur", function () {
 			var value 		= valueAccessor(),
 				elementText = element.innerHTML,
 				format 		= allBindings.get('format');
@@ -253,6 +294,31 @@ ko.bindingHandlers.formatNumber  	= {
 		var value 		= numeral().unformat(ko.unwrap(valueAccessor())),
 			format 		= allBindings.get('format'),
 			formatted 	= numeral(numeral().unformat(value)).format(format);
+		$(element).text(formatted);
+		return formatted;
+	}
+};
+
+// Format Number Binding -- Requires use of format binding that makes use of numeral format string
+ko.bindingHandlers.formatNumber  	= {
+	init 	: function (element, valueAccessor, allBindings) {
+		var value 		= ko.unwrap(valueAccessor()),
+			format 		= allBindings.get('format'),
+			formatted 	= '';
+		if (typeof value !== "undefined") {
+			formatted 		= numeral(numeral().unformat(value)).format(format);
+		}
+		$(element).text(formatted);
+		return formatted;
+	},
+	update 	: function (element, valueAccessor, allBindings) {
+		var value 		= ko.unwrap(valueAccessor()),
+			format 		= allBindings.get('format'),
+			formatted 	= '';
+		console.log(value);
+		if (typeof value !== "undefined") {
+			formatted 		= numeral(numeral().unformat(value)).format(format);
+		}
 		$(element).text(formatted);
 		return formatted;
 	}

@@ -238,6 +238,9 @@ Brand Styles
 
 /* Typography Styles */
 
+#calculator-wrapper .bold {
+	font-weight: 600;
+}
 #calculator-wrapper .title {
 	font-weight: 200;
 	font-size: 28px;
@@ -405,6 +408,9 @@ Page Element Styles
 #calculator-wrapper .editable:focus {
 	box-shadow: none;
 	border-color: #34b8f4;
+}
+#calculator-wrapper .editable.row:after {
+	content: none;
 }
 #calculator-wrapper .editable.placeholder {
 	font-style: italic;
