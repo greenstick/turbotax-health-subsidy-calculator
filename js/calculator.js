@@ -17,6 +17,7 @@ Calculator.prototype 	= {
 	// Constructor Function
 	__init__ 				: function (config) {
 		var self = this;
+		this.baseURL			= config.baseURL,
 		this.getURL 			= config.getURL,
 		this.element 			= config.element,
 		this.inputElement 		= config.inputElement,
@@ -269,7 +270,8 @@ var config 		= {
 		start 					: 1,
 		count 					: 7
 	},
-	getURL 					: 'api.php/getSubsidy/'
+	getURL 					: 'api.php/getSubsidy/',
+	baseURL					: document.URL
 };
 
 var calculator 	= new Calculator(config);
