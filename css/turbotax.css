@@ -98,7 +98,7 @@ Normalize & Native UI Mods
 Core Styles
 */
 
-body {
+body#c5-body {
 	margin: 0;
 }
 #calculator-wrapper {
