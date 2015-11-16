@@ -22,7 +22,7 @@ Author: Benjamin Cordier
 				<div class="page-aligner">
 					<div class="page-content">
 						<div class="row icon">
-							<img src="img/icon-1.svg" />
+							<img data-bind="attr: { src: baseURL + 'img/icon-1.svg' }" />
 						</div>
 						<div class="row title darkgrey">
 							Are you eligible for a health insurance subsidy?
@@ -55,7 +55,7 @@ Author: Benjamin Cordier
 							</div>
 						</div>
 						<div class="row icon">
-							<img src="img/icon-2.svg" />
+							<img data-bind="attr: { src: baseURL + 'img/icon-2.svg' }" />
 						</div>
 						<div class="row lead darkgrey">
 							How many people live in
@@ -99,7 +99,7 @@ Author: Benjamin Cordier
 							</div>
 						</div>
 						<div class="row icon">
-							<img src="img/icon-3.svg" />
+							<img data-bind="attr: { src: baseURL + 'img/icon-3.svg' }" />
 						</div>
 						<div class="row lead darkgrey">
 							When were you born?
@@ -149,7 +149,7 @@ Author: Benjamin Cordier
 							</div>
 						</div>
 						<div class="row icon">
-							<img src="img/icon-4.svg" />
+							<img data-bind="attr: { src: baseURL + 'img/icon-4.svg' }" />
 						</div>
 						<div class="row lead darkgrey">
 							What do you expect
@@ -192,7 +192,7 @@ Author: Benjamin Cordier
 							</div>
 						</div>
 						<div class="row icon">
-							<img src="img/icon-5.svg" />
+							<img data-bind="attr: { src: baseURL + 'img/icon-5.svg' }" />
 						</div>
 						<div class="row lead darkgrey">
 							Where do you live?
@@ -307,16 +307,12 @@ Author: Benjamin Cordier
 		<!-- Footer Logos -->
 		<div id="footer">
 			<div class="logo right">
-				<img src="img/intuit-logo.svg" />
+				<img data-bind="attr: { src: baseURL + 'img/intuit-logo.svg' }" />
 			</div>
 		</div>
 	</div>
 <!-- JS -->
 	<script src="js/lib/libs.min.js" type="application/javascript"></script>
-	<script src="js/calculator.js" type="application/javascript"></script>
-<!-- Image Pre-loader -->
-	<script>
-	var images=['img/intuit-logo.svg', 'img/icon-1.svg','img/icon-2.svg','img/icon-3.svg','img/icon-4.svg','img/icon-5.svg'],k=null,img=null;for(var i=0,l=images.length;i<l;i++){if(images.hasOwnProperty(k)){img=new Image();img.src=images[k];images[k]=img;};};
-	</script>
+	<script src="js/calculator.js" type="application/javascript"></script> 
 </body>
 </html>
